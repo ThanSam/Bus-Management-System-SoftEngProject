@@ -35,7 +35,7 @@ public class ShowDriverListFrame extends JFrame {
 			
 			String id = d.getId();
 			
-			printArea.append(id/*"                   "+userCode*/+"\n");
+			printArea.append(id+"\n");
 		}
 	
 		
