@@ -18,7 +18,7 @@ public class MainSecretariatFrame extends JFrame {
 	private JButton showDriverIdListButton;
 	private JButton showPassengerListButton;
 	private JButton driverProgramButton;
-	private JButton sendMessageToDriverOrPassngerButton;
+	private JButton sendMessageToDriverOrPassengerButton;
 	private JButton showEmergencyButton;
 	private JButton LogOutButton;
 	private Secretariat secretariat;
@@ -35,7 +35,7 @@ public class MainSecretariatFrame extends JFrame {
 		createDeleteDriverButton = new JButton("Create/Delete Driver");
 		driverProgramButton = new JButton("Driver's Schedule");
 		showDriverIdListButton = new JButton(" Show Drivers List ");
-		sendMessageToDriverOrPassngerButton = new JButton("Send Message To Driver Or Passenger");
+		sendMessageToDriverOrPassengerButton = new JButton("Send Message To Driver Or Passenger");
 		showPassengerListButton = new JButton(" Show Passengers List ");
 		showEmergencyButton = new JButton("Show Emergency");
 		showEmergencyButton.setForeground(Color.RED);
@@ -46,7 +46,7 @@ public class MainSecretariatFrame extends JFrame {
 		createDeleteDriverButton.addActionListener(b1);
 		showDriverIdListButton.addActionListener(b1);
 		driverProgramButton.addActionListener(b1);
-		sendMessageToDriverOrPassngerButton.addActionListener(b1);
+		sendMessageToDriverOrPassengerButton.addActionListener(b1);
 		showPassengerListButton.addActionListener(b1);
 		showEmergencyButton.addActionListener(b1);
 		LogOutButton.addActionListener(b1);
@@ -103,8 +103,8 @@ public class MainSecretariatFrame extends JFrame {
 			}
 
 		
-			if (e.getSource() == sendMessageToDriverOrPassngerButton) {
-				SendMessageToDriverOrPassngerFrame sendMessageToDriverOrPassngerFrame = new SendMessageToDriverOrPassngerFrame(secretariat);
+			if (e.getSource() == sendMessageToDriverOrPassengerButton) {
+				SendMessageToDriverOrPassengerFrame sendMessageToDriverOrPassngerFrame = new SendMessageToDriverOrPassngerFrame(secretariat);
 
 			}
 			if (e.getSource() == showPassengerListButton) {
