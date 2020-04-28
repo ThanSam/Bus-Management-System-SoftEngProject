@@ -43,7 +43,7 @@ public class SendMessageToDriverOrPassngerFrame extends JFrame {
 	private Checkbox checkBox3;
 	private JLabel label;
 
-	public SendMessageToDriverOrPassngerFrame(Secretariat aSecretariat) {
+	public SendMessageToDriverOrPassengerFrame(Secretariat aSecretariat) {
 		this.aSecretariat = aSecretariat;
 		passengersPanel = new JPanel();
 		driversPanel = new JPanel();
