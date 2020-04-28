@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-public class SendMessageToDriverOrPassngerFrame extends JFrame {
+public class SendMessageToDriverOrPassengerFrame extends JFrame {
 
 	private JPanel mainPanel;
 	private JPanel passengersPanel;
