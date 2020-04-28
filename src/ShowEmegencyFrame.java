@@ -49,8 +49,7 @@ public class ShowEmegencyFrame extends JFrame{
 		BackButton = new JButton("Back");
 		sendDriverButton.setForeground(Color.red);
 		mainPanel = new JPanel();
-		//printArea= new JTextArea(10,10);
-		//printArea1= new JTextArea(10,10);
+
 		
 		Driver d1 = new Driver("John", "Lampis", "22", "6981144627" , "JohnL", "mypass", secretariat);
 		Driver d2 = new Driver("Kostas", "Kampos", "40", "6941144625" , "KostasKam", "mypass2", secretariat);
@@ -64,34 +63,6 @@ public class ShowEmegencyFrame extends JFrame{
 		freeDrivers.add(d4);
 		freeDrivers.add(d5);
 	
-		
-		
-
-		/*emergencyList=secretariat.getEmergencyList();
-		
-		for(Driver driver:emergencyList) {
-			printArea.append("   \n"+driver.getId());
-		}
-		for(Driver driver:freeDrivers) {
-			printArea.append("   \n"+driver.getId());
-		}
-		*/
-	
-		
-		
-		//printArea.setEditable(false); // set textArea non-editable
-		//JScrollPane scroll = new JScrollPane(printArea);
-		//scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		//driversWhoPushButtonPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.LIGHT_GRAY));
-		//driversWhoPushButtonPanel.setBorder(new TitledBorder(new EtchedBorder(), "Emergencies"));
-		//driversWhoPushButtonPanel.add(scroll);
-		
-		//printArea1.setEditable(false); // set textArea non-editable
-		//JScrollPane scroll1 = new JScrollPane(printArea1);
-		//scroll1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		//driversFreePanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.LIGHT_GRAY));
-		//driversFreePanel.setBorder(new TitledBorder(new EtchedBorder(), "Free Drivers"));
-		//driversFreePanel.add(scroll1);
 		
 		//ArrayList<JCheckBox> CheckBoxesD = new ArrayList<JCheckBox>(); 
 		ArrayList<JCheckBox> CheckBoxesFD = new ArrayList<JCheckBox>();
