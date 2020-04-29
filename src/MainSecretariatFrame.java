@@ -58,7 +58,7 @@ public class MainSecretariatFrame extends JFrame {
 		showPassengerListButton.setBounds(90, 320, 170, 25);
 		driverProgramButton.setBounds(20, 360, 150, 25);
 		showEmergencyButton.setBounds(185, 360, 150, 25);
-		sendMessageToDriverOrPassngerButton.setBounds(50, 400, 255, 25);
+		sendMessageToDriverOrPassengerButton.setBounds(50, 400, 255, 25);
 		LogOutButton.setBounds(255, 455, 100, 25);
 		
 		mainPanel.add(img);
@@ -67,7 +67,7 @@ public class MainSecretariatFrame extends JFrame {
 		mainPanel.add(showPassengerListButton);
 		mainPanel.add(driverProgramButton);
 		mainPanel.add(showEmergencyButton);
-		mainPanel.add(sendMessageToDriverOrPassngerButton);
+		mainPanel.add(sendMessageToDriverOrPassengerButton);
 		mainPanel.add(LogOutButton);
 	
 		
@@ -104,7 +104,7 @@ public class MainSecretariatFrame extends JFrame {
 
 		
 			if (e.getSource() == sendMessageToDriverOrPassengerButton) {
-				SendMessageToDriverOrPassengerFrame sendMessageToDriverOrPassngerFrame = new SendMessageToDriverOrPassngerFrame(secretariat);
+				SendMessageToDriverOrPassengerFrame sendMessageToDriverOrPassngerFrame = new SendMessageToDriverOrPassengerFrame(secretariat);
 
 			}
 			if (e.getSource() == showPassengerListButton) {
