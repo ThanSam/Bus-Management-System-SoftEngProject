@@ -34,7 +34,7 @@ public class BusRoute {
 			this.totalPassengers += passengers;
 	}
 	
-	public static ArrayList<BusRoute> initiateBusRoutes() {
+	/*public static ArrayList<BusRoute> initiateBusRoutes() {
 		
 		//Initiate buses.
 		ArrayList<Bus> buses = new ArrayList<Bus>();
@@ -57,7 +57,7 @@ public class BusRoute {
 		
 		return BusRoutes;
 	}
-	
+	*/
 
 	public BusLine getLine() {
 		
