@@ -30,6 +30,8 @@ public class Main {
 		//new MainSecretariatFrame(s1,mainFrame);
 		
 		
+		//Initiate bus lines.
+		
 		//Initiate bus line no.1X 
 		ArrayList<String> Stops1X = new ArrayList<String>();
 		Stops1X.add("T.S. K.T.E.L.");
@@ -192,6 +194,25 @@ public class Main {
 		s1.addBusLine(l14);
 		s1.addBusLine(l17);
 		s1.addBusLine(l11);
+		
+		
+		//Initiate buses.
+		ArrayList<Bus> buses = new ArrayList<Bus>();
+		buses.add(new Bus("B1",35));
+		buses.add(new Bus("B2",35));
+		buses.add(new Bus("B3",35));
+		buses.add(new Bus("B4",35));
+		buses.add(new Bus("B5",35));
+		
+		//Initiate bus routes.
+		int bus = 0;
+	
+		for(BusLine line: s1.getBusLineList()) {
+			for(double time: line.getTimes())
+				s1.addBusRoute(new BusRoute(line,time,buses.get(bus)));
+			bus++;
+		}
+		
 		
 	}
 	
