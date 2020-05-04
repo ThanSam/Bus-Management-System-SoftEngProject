@@ -217,6 +217,7 @@ public class CreateDeleteDriverFrame extends JFrame {
 					}
 				}
 				if (outcome.equals(" ")) {
+			      sec.addFreeDrivers(aDriver);
 		             sec.addDriver(aDriver);
 					JOptionPane.showMessageDialog(null, "You have create succesfully the driver: "+ aDriver.getId()+".");
 					dispose();
