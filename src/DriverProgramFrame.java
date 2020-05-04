@@ -1,10 +1,12 @@
+import java.awt.Choice;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,7 +25,7 @@ import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
 public class DriverProgramFrame extends JFrame {
-	
+
 	private JPanel mainPanel;
 	private ImageIcon icon;
 	private JPanel createPanel;
@@ -48,20 +50,26 @@ public class DriverProgramFrame extends JFrame {
 	private JLabel idDriverDeleteLabel;
 	private JLabel dateMonthYearDeleteLabel;
 	private JLabel printSpecificDriverProgramLabel;
-	private Secretariat secretariat;
+	private Secretariat sec;
 	private JTextArea printAllDriversProgramText;
 	private JTextArea printSpecificDriverProgramTextArea;
+	private JTextArea BusLineTextArea;
 	private UtilDateModel model;
 	private JDatePanelImpl datePanel;
 	private JDatePickerImpl datePicker;
 	private UtilDateModel model1;
 	private JDatePanelImpl datePanel1;
 	private JDatePickerImpl datePicker1;
-	
-	public DriverProgramFrame(Secretariat secretariat) {
+	private ArrayList<BusLine> busLineList;
+	private Choice c;
+	private Choice time;
 
+	public DriverProgramFrame(Secretariat sec) {
+		c = new Choice();
+		time = new Choice();
 		icon = new ImageIcon("p2.png");
-		
+		busLineList = new ArrayList<BusLine>();
+		busLineList = sec.getBusLineList();
 		backButton = new JButton("Back");
 		createButton = new JButton("Create");
 		deleteButton = new JButton("Delete");
@@ -69,31 +77,25 @@ public class DriverProgramFrame extends JFrame {
 		clear2Button = new JButton("Clear");
 		printSpecificDriverProgramButton = new JButton("Print Specific Driver Program");
 		printAllDriversProgramButton = new JButton("Print All Driver Program");
-
 		mainPanel = new JPanel();
 		createPanel = new JPanel();
 		deletePanel = new JPanel();
 		printSpecificDriverProgramPanel = new JPanel();
 		printDriversProgramPanel = new JPanel();
 		backPanel = new JPanel();
-
 		idDriverCreateText = new JTextField(5);
 		dateMonthYearCreateText = new JTextField(15);
-
 		idDriverDeleteText = new JTextField(10);
 		dateMonthYearDeleteText = new JTextField(15);
 		printSpecificDriverProgramText = new JTextField(5);
 		printSpecificDriverProgramTextArea = new JTextArea(9, 15);
-
 		printAllDriversProgramText = new JTextArea(9, 15);
-
 		idDriverCreateLabel = new JLabel("Id Driver");
 		dateMonthYearCreateLabel = new JLabel("Day/Date/Mounth/Year/Hour:Minute");
-
 		idDriverDeleteLabel = new JLabel("Id Driver");
 		dateMonthYearDeleteLabel = new JLabel("Date/Mounth/Year/Hour:Minute");
-
 		printSpecificDriverProgramLabel = new JLabel("ID Driver");
+		BusLineTextArea = new JTextArea(9, 15);
 
 		ButtonListener b1 = new ButtonListener();
 		backButton.addActionListener(b1);
@@ -104,6 +106,12 @@ public class DriverProgramFrame extends JFrame {
 		clearButton.addActionListener(b1);
 		clear2Button.addActionListener(b1);
 
+		for (BusLine busLine : busLineList) {
+			c.add(busLine.getLineID());
+		}
+        time.add("8:00-16:00");
+        time.add("16:00-00:00");
+        
 		createPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.LIGHT_GRAY));
 		createPanel.setBorder(new TitledBorder(new EtchedBorder(), "Create Driver Area"));
 		createPanel.add(idDriverCreateLabel);
@@ -113,6 +121,8 @@ public class DriverProgramFrame extends JFrame {
 		datePicker = new JDatePickerImpl(datePanel);
 		model.setSelected(true);
 		createPanel.add(datePicker);
+		createPanel.add(c);
+		createPanel.add(time);
 		createPanel.add(createButton);
 
 		deletePanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
@@ -146,9 +156,9 @@ public class DriverProgramFrame extends JFrame {
 		printDriversProgramPanel.add(printAllDriversProgramButton);
 		printDriversProgramPanel.add(scroll);
 		printDriversProgramPanel.add(clear2Button);
-		
+
 		backPanel.setLayout(null);
-		backButton.setBounds(285,10,90,25);
+		backButton.setBounds(285, 10, 90, 25);
 		backPanel.add(backButton);
 
 		mainPanel.add(createPanel);
@@ -164,29 +174,42 @@ public class DriverProgramFrame extends JFrame {
 		this.setIconImage(icon.getImage());
 		this.setResizable(false);
 		this.setVisible(true);
-		this.setSize(400, 700);
+		this.setSize(400, 900);
 		this.setTitle("Driver's Program");
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
 	public void setSecreatariat(Secretariat secretariat) {
-		this.secretariat = secretariat;
+		this.sec = secretariat;
 	}
 
 	class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			int id = 0;
-
+            ArrayList<Driver> driverList = new    ArrayList<Driver>();
+            driverList=sec.getDriverList();
+            for(Driver driver:driverList) {
+            if(idDriverCreateText.getText().equals(driver.getId())){
+              	sec.deleteDriverFromFreeDriversList(driver);
+            }
+         }
+			String[][] idDriverList1 = new String[5][7];
+			String[][] driverLineList = new String[5][7];
+			idDriverList1 = sec.getList();
+			driverLineList = sec.getDriverLineList();
 			String dateMonthYear = "";
 			int day = 0;
 			if (e.getSource().equals(createButton)) {
-				
+				String month=String.valueOf(model.getMonth());
+				 month=String.valueOf(Integer.parseInt(month)+1);
 				id = Integer.parseInt(idDriverCreateText.getText());
-				dateMonthYear = String.valueOf(model.getValue());
-				StringBuilder sb = new StringBuilder(dateMonthYear);
-				sb.delete(11,20);
-				dateMonthYear=String.valueOf(sb);
-				secretariat.addProgramDriver(id, dateMonthYear);
+				dateMonthYear = String.valueOf(model.getDay()+"/"+month+"/"+model.getYear());
+				
+				dateMonthYear = dateMonthYear +" " + time.getSelectedItem();
+	
+				String idLine = c.getSelectedItem();
+				sec.addProgramDriverBusLine(id, dateMonthYear, idLine);
+		   
 				JOptionPane.showMessageDialog(mainPanel, "Added");
 			}
 
@@ -195,24 +218,23 @@ public class DriverProgramFrame extends JFrame {
 				id = Integer.parseInt(idDriverDeleteText.getText());
 				dateMonthYear = String.valueOf(model1.getValue());
 				StringBuilder sb = new StringBuilder(dateMonthYear);
-				sb.delete(11,20);
-				dateMonthYear=String.valueOf(sb);
-				if(secretariat.deleteProgramDriver(id, dateMonthYear)==true) {
-					JOptionPane.showMessageDialog(mainPanel, "The driver with ID: " + id + " has nothing in this date: "+dateMonthYear);
+				sb.delete(11, 20);
+				dateMonthYear = String.valueOf(sb);
+				if (sec.deleteProgramDriver(id, dateMonthYear) == true) {
+					JOptionPane.showMessageDialog(mainPanel,
+							"The driver with ID: " + id + " has nothing in this date: " + dateMonthYear);
 				}
 
 			}
 			if (e.getSource().equals(printSpecificDriverProgramButton)) {
 				id = Integer.parseInt(printSpecificDriverProgramText.getText());
 
-				String[][] idDriverList1 = new String[5][7];
 				int y = 0;
-				idDriverList1 = secretariat.getList();
 
 				for (y = 0; y < 7; y++) {
 					if (idDriverList1[id][y] != null) {
-						printSpecificDriverProgramTextArea
-								.append("ID:" + id + "  timetable: " + idDriverList1[id][y] + "\n");
+						printSpecificDriverProgramTextArea.append("ID:" + id + "  timetable: " + idDriverList1[id][y]
+								+ " LineId: " + driverLineList[id][y] + "\n");
 					}
 				}
 			}
@@ -224,14 +246,14 @@ public class DriverProgramFrame extends JFrame {
 
 			if (e.getSource().equals(printAllDriversProgramButton)) {
 
-				String[][] idDriverList1 = new String[5][7];
 				int i = 0, y = 0;
-				idDriverList1 = secretariat.getList();
+				idDriverList1 = sec.getList();
 				for (i = 0; i < 10; i++) {
 					for (y = 0; y < 7; y++) {
 						if (idDriverList1[i][y] != null) {
-							printAllDriversProgramText.append("ID:" + i + "  timetable: " + idDriverList1[i][y] + "\n");
-							
+							printAllDriversProgramText.append("ID:" + i + "  timetable: " + idDriverList1[i][y]
+									+ " LineId: " + driverLineList[i][y] + "\n");
+
 						}
 					}
 				}

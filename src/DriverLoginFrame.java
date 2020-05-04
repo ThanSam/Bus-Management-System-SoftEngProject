@@ -96,7 +96,7 @@ public class DriverLoginFrame extends JFrame {
 
 	class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-
+          String outcome=" ";
 			if (e.getSource().equals(LogInButton)) {
 				driverList = sec.getDriverList();
 				for (Driver driver : driverList) {
@@ -104,10 +104,13 @@ public class DriverLoginFrame extends JFrame {
 							&& (passwordField.getText().equals(driver.getPassword()))) {
 						DriverGUI driverGUI = new DriverGUI(driver, sec);
 						driverGUI.setMainMenuFrame(mainMenuFrame);
+						outcome="ok";
 						dispose();
-					} else {
-						JOptionPane.showMessageDialog(null, "Invalid ID or password");
+						break;
 					}
+				}
+				if(outcome==" ") {
+				JOptionPane.showMessageDialog(null, "Invalid ID or password");
 				}
 			} else if (e.getSource().equals(ReturnButton)) {
 				mainMenuFrame.setVisible(true);
