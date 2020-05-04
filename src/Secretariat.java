@@ -1,15 +1,20 @@
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Secretariat {
 
+	private String  time;
 	private Passenger aPassenger;
 	private ArrayList<Driver> driverList = new ArrayList<Driver>();
 	private ArrayList<Driver> emergencyList = new ArrayList<Driver>();
 	private ArrayList<Driver> freeDrivers = new ArrayList<Driver>();
+	private ArrayList<Driver> freeDrivers1 = new ArrayList<Driver>();
 	private ArrayList<Passenger> passengerList = new ArrayList<Passenger>();
+	private ArrayList<BusLine> busLineList = new ArrayList<BusLine>();
 	String[][] driverProgramm = new String[10][7];
+	String[][] driverline = new String[10][7];
 	String[][] messageToDriver = new String[5][100];
-
+    String[][] freeDriver = new String[10][7];
 	public Secretariat() {
 
 	}
@@ -28,19 +33,8 @@ public class Secretariat {
 		}
 
 	}
-
 	public ArrayList<Driver> getDriverList() {
 		return driverList;
-	}
-
-	public void addEmergncy(Driver aDriver) {
-		for (Driver driver : driverList) {
-			emergencyList.add(driver);
-		}
-	}
-
-	public ArrayList<Driver> getEmergencyList() {
-		return emergencyList;
 	}
 
 	public boolean searchIdDriver(Driver aDriver) {
@@ -51,31 +45,125 @@ public class Secretariat {
 		return false;
 	}
 
-	public void checkIfDriverHasProgramm(Driver aDriver) {
-		int y = 0;
+	
+	
+	
+	
+	
+	
+	
+	public void addEmergncy(Driver aDriver, String time) {
 		int id = Integer.parseInt(aDriver.getId());
-		for (y = 0; y < 7; y++) {
-			if (driverProgramm[id][y] == null) {
-				freeDrivers.add(aDriver);
+		int y = 1;
+		boolean flag = false;
+		System.out.println(time);
+		System.out.println(driverProgramm[id][1]);
+		for (y = 1; y <= 7; y++) {
+			if (driverProgramm[id][y].equals(time)) {
+				String idBusLine = driverline[id][y];
+				aDriver.setLineid(idBusLine);
+				flag = true;
+				break;
+			}
+		}
+		if (flag == true) {
+			emergencyList.add(aDriver);
+		}
+
+	}
+
+	public void deleteDriverFromEmergancyList(Driver aDriver) {
+		for (Driver driver : emergencyList) {
+			if (driver == aDriver) {
+				emergencyList.remove(aDriver);
+				break;
 			}
 		}
 
 	}
 
-	public void addProgramDriver(int id, String dateMonthYear) {
+	public ArrayList<Driver> getEmergencyList() {
+		return emergencyList;
+	}
+
+
+
+	
+	
+	
+	
+	
+	public void setTime(String time) {
+		this.time=time;
+	}
+	
+	public void addFreeDrivers(Driver aDriver) {
+		int y = 0;
+        int z=0;
+		int id = Integer.parseInt(aDriver.getId());
+		for (y = 1; y < 7; y++) {
+			if (driverProgramm[id][y] == null) {
+			       freeDriver[id][z]=driverProgramm[id][y];
+                    z=z+1;
+			}
+		}
+			if(z==6) {
+				freeDrivers.add(aDriver);
+			}
+	
+}
+	public void check(){
+		int y=0;
+	   for(Driver driver:freeDrivers) {
+		  for (y = 1; y < 7; y++) {
+			if (freeDriver[Integer.parseInt(driver.getId())][y] != time) {
+				     freeDrivers.add(driver);
+				     y=7;
+					}
+				}
+			}
+	}
+
+	public void deleteDriverFromFreeDriversList(Driver aDriver) {
+		freeDrivers.remove(aDriver);
+
+	}
+	public ArrayList<Driver> getFreeDriversList( ) {
+		return freeDrivers;
+
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public void addProgramDriverBusLine(int id, String dateMonthYear, String idLine) {
 		int y;
 		for (y = 1; y <= 7; y++) {
 			if (driverProgramm[id][y] != dateMonthYear) {
 				if (driverProgramm[id][y] == null) {
 					driverProgramm[id][y] = dateMonthYear;
+					driverline[id][y] = idLine;
 					break;
 				}
 			}
 		}
 
 	}
-	
-	
+
+	public String[][] getList() {
+		return driverProgramm;
+	}
+
+	public String[][] getDriverLineList() {
+		return driverline;
+	}
+
 	public boolean deleteProgramDriver(int id, String dateMonthYear) {
 		int day = 0;
 
@@ -87,15 +175,12 @@ public class Secretariat {
 		return false;
 	}
 
-	
-	
-	
 	public ArrayList<String> getSpecificDriverProgramm(int aDriverId) {
 		int id = aDriverId;
 		int y = 0;
 		ArrayList<String> list = new ArrayList<String>();
 
-		for (y = 0; y < 7; y++) {
+		for (y = 1; y <= 7; y++) {
 			if (driverProgramm[id][y] != null) {
 				list.add(driverProgramm[id][y]);
 			}
@@ -103,35 +188,24 @@ public class Secretariat {
 		return list;
 	}
 
-	
+	public void messageListToAllDrivers(String message) {
+		int i = 0;
 
-	public ArrayList<Driver> getFreeDriverList() {
-		return freeDrivers;
+		for (Driver driver : driverList) {
+			int id = Integer.parseInt(driver.getId());
+			if (messageToDriver[id][i] == null) {
+				messageToDriver[id][i] = message;
+			} else {
+				i = i + 1;
+				messageToDriver[id][i] = message;
+			}
+		}
 	}
-	
-	
-	public String[][] getList() {
-		return driverProgramm;
-	}
-	
-	
-	 public void messageListToAllDrivers(String message) { 
-        int i = 0; 
-        
-	  for (Driver driver : driverList) { 
-	  int id = Integer.parseInt(driver.getId());
-	  if (messageToDriver[id][i] == null) {
-	      messageToDriver[id][i] = message; } 
-	   else { i = i + 1; messageToDriver[id][i] = message; } 
-	  }
-	  } 
-
 
 	public String[][] getMessageListDriver() {
 		return messageToDriver;
 	}
-	
-	
+
 	public void messageListToDriver(int id, String message) {
 		int i = 0;
 		if (messageToDriver[id][i] == null) {
@@ -141,11 +215,6 @@ public class Secretariat {
 			messageToDriver[id][i] = message;
 		}
 	}
-	
-	
-	
-	
-	
 
 	public void addPassenger(Passenger pas) {
 		passengerList.add(pas);
@@ -161,10 +230,18 @@ public class Secretariat {
 
 	}
 
-	
-	
+	public void addBusLine(BusLine busLine) {
+		busLineList.add(busLine);
+	}
 
+	public void deleteBusLine(BusLine busLine) {
+		busLineList.remove(busLine);
 
-	
+	}
+
+	public ArrayList<BusLine> getBusLineList() {
+		return busLineList;
+
+	}
 
 }
