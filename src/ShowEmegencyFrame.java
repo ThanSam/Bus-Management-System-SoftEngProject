@@ -1,6 +1,7 @@
 import java.awt.Checkbox;
 import java.awt.CheckboxGroup;
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -19,7 +20,9 @@ import javax.swing.ScrollPaneConstants;
 public class ShowEmegencyFrame extends JFrame {
 
 	private ImageIcon icon;
-	private ImageIcon icon3;
+	private ImageIcon refreshIcon;
+	private Image refreshImg;
+	private Image refreshImg2;
 	private JLabel img;
 	private ArrayList<Driver> emergencyList = new ArrayList<Driver>();
 	private ArrayList<Driver> freeDrivers = new ArrayList<Driver>();
@@ -45,9 +48,13 @@ public class ShowEmegencyFrame extends JFrame {
 	public ShowEmegencyFrame(Secretariat sec) {
         this.sec=sec;
 		icon = new ImageIcon("p2.png");
-		icon3 = new ImageIcon("p9.png");
+		refreshIcon = new ImageIcon("p9.png");
+		refreshImg = refreshIcon.getImage();
+		refreshImg2 = refreshImg.getScaledInstance( 35, 35,  java.awt.Image.SCALE_SMOOTH );
+		refreshIcon = new ImageIcon(refreshImg2);
+		refreshButton= new JButton();
+		refreshButton.setIcon(refreshIcon);
 		img = new JLabel(new ImageIcon("p8.png"));
-		refreshButton= new JButton("OK", new ImageIcon("p9.png"));
 		EmergenciesLabel = new JLabel("Emergencies");
 		freeDriversLabel = new JLabel("Free Drivers");
 		driversWhoPushButtonPanel = new JPanel();
@@ -96,10 +103,9 @@ public class ShowEmegencyFrame extends JFrame {
 		freeDriversLabel.setBounds(460, 225, 100, 25);
 		scroll.setBounds(15, 250, 400, 140);
 		scroll2.setBounds(425, 250, 300, 140);
-		sendDriverButton.setBounds(220, 420, 150, 25);
-		refreshButton.setRolloverIcon(new ImageIcon("10.png"));
-		refreshButton.setBounds(475, 400, 25, 25);
-		BackButton.setBounds(475, 430, 80, 25);
+		sendDriverButton.setBounds(220, 440, 150, 25);
+		refreshButton.setBounds(402, 400, 35, 35);
+		BackButton.setBounds(475, 450, 80, 25);
 
 		mainPanel.add(img);
 		mainPanel.add(EmergenciesLabel);
@@ -114,7 +120,7 @@ public class ShowEmegencyFrame extends JFrame {
 		this.setIconImage(icon.getImage());
 		this.setResizable(false);
 		this.setVisible(true);
-		this.setSize(750, 500);
+		this.setSize(750, 550);
 		this.setTitle("Emergencies");
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
