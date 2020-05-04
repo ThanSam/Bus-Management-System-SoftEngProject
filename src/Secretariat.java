@@ -11,6 +11,7 @@ public class Secretariat {
 	private ArrayList<Driver> freeDrivers1 = new ArrayList<Driver>();
 	private ArrayList<Passenger> passengerList = new ArrayList<Passenger>();
 	private ArrayList<BusLine> busLineList = new ArrayList<BusLine>();
+	private ArrayList<BusRoute> busRouteList = new ArrayList<BusRoute>();
 	String[][] driverProgramm = new String[10][7];
 	String[][] driverline = new String[10][7];
 	String[][] messageToDriver = new String[5][100];
@@ -46,12 +47,6 @@ public class Secretariat {
 	}
 
 	
-	
-	
-	
-	
-	
-	
 	public void addEmergncy(Driver aDriver, String time) {
 		int id = Integer.parseInt(aDriver.getId());
 		int y = 1;
@@ -86,13 +81,6 @@ public class Secretariat {
 		return emergencyList;
 	}
 
-
-
-	
-	
-	
-	
-	
 	public void setTime(String time) {
 		this.time=time;
 	}
@@ -133,14 +121,6 @@ public class Secretariat {
 
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	public void addProgramDriverBusLine(int id, String dateMonthYear, String idLine) {
 		int y;
@@ -242,6 +222,20 @@ public class Secretariat {
 	public ArrayList<BusLine> getBusLineList() {
 		return busLineList;
 
+	}
+	
+	public void addBusRoute(BusRoute busRoute) {
+		busRouteList.add(busRoute);
+		
+	}
+	
+	public void deleteBusRoute(BusRoute busRoute) {
+		busRouteList.remove(busRoute);
+		
+	}
+	
+	public ArrayList<BusRoute> getBusRouteList() {
+		return busRouteList;
 	}
 
 }
