@@ -10,6 +10,7 @@ public class Driver {
 	private String phoneNumber;
 	private String id;
 	private String password;	
+	private String idBusLine;
 	
 	public Driver(String firstname, String lastname, String age, String phoneNumber,String id, String password, Secretariat sec)	
 	{
@@ -95,6 +96,13 @@ public class Driver {
 	}
 
 
+	public void setLineid(String idbusline) {
+		this.idBusLine = idbusline;
+	}
+
+	public String getLineid() {
+		return idBusLine;
+	}
 	
 	
 	public void addMessage(String aMessage) {
