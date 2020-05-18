@@ -26,11 +26,11 @@ public class Passenger{
 	
 	//SetInfo
 	public void setInfo(String firstname,String lastname,int age ,String phoneNumber,String password) {//
-		if(!firstname.equals(null)) this.firstname=firstname;
-		if(!lastname.equals(null)) this.lastname=lastname;
-		if(age!=-1)	this.age=age;
-		if(!phoneNumber.equals(null)) this.phoneNumber=phoneNumber;
-		if(!password.equals(null)) this.password=password;
+		this.firstname=firstname;
+		this.lastname=lastname;
+		this.age=age;
+		this.phoneNumber=phoneNumber;
+		this.password=password;
 	}
 	
 	
@@ -75,6 +75,17 @@ public class Passenger{
 		return phoneNumber;
 	}
 	
-
+	public Secretariat getSecretariat() {
+		return this.sec;
+	}
+	
+	public String getInfo() {
+		
+		String text="";
+		
+		text+=this.getFirstName()+" "+this.getLastName()+" "+Integer.toString(this.getAge())+"\n"+this.getPhoneNumber()+"  "+this.getId();
+		
+		return text;
+	}
 }
 

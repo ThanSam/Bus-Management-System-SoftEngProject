@@ -19,6 +19,8 @@ public class TicketPurchase extends JFrame{
 	
 	
 	private double cost; 
+	private Passenger passenger;
+	private String category="Normal";
 	
 	//GUI variables
 	private JFrame frame;
@@ -29,10 +31,17 @@ public class TicketPurchase extends JFrame{
 	private JLabel stopsLabel,costLabel;
 	private JTextField costField;
 	
-	public TicketPurchase(int age) {
+	public TicketPurchase(Passenger passenger) {
 		
 		//Variables creation
 		cost=0.0;
+		this.passenger=passenger;
+		int age = passenger.getAge();
+		
+		if(age<=24 && age>=18) {
+			category="Discount";
+		}
+		
 		frame= new JFrame();
 		icon= new ImageIcon("p2.png");
 		panel= new JPanel();
@@ -62,7 +71,7 @@ public class TicketPurchase extends JFrame{
 		
 		
 		//MouseListener stopsList
-		MouseListener mouseListener= new MouseAdapter() {
+		MouseListener mouseListenerStops= new MouseAdapter() {
 			public void mouseClicked(MouseEvent mouseEvent) {
 		        stopsList=(JList) mouseEvent.getSource();
 		        int stops=0;  
@@ -70,18 +79,18 @@ public class TicketPurchase extends JFrame{
 		        if (stops >= 0) {
 		            Object o = stopsList.getModel().getElementAt(stops);
 		            cost=Double.valueOf(o.toString())*0.2;
-					if(age<=24 && age>=18) {
+					if(category.equals("Discount")) {
 						cost=cost/2;
 					}
 		            costField.setText(String.format("%.2f", cost));
 		          }
 		      }
 		};
-		stopsList.addMouseListener(mouseListener);
+		stopsList.addMouseListener(mouseListenerStops);
 		
 		
 		//MouseListener cardsList
-		MouseListener mouseListener1= new MouseAdapter() {
+		MouseListener mouseListenerCards= new MouseAdapter() {
 			public void mouseClicked(MouseEvent mouseEvent) {
 				cardsList=(JList) mouseEvent.getSource();
 		        int card=0;  
@@ -95,36 +104,19 @@ public class TicketPurchase extends JFrame{
 		        }
 		    }
 		};
-		cardsList.addMouseListener(mouseListener1);
+		cardsList.addMouseListener(mouseListenerCards);
 		
 		
-		//PurchaseButton
+		//Creating button listener
+		ButtonListener listener=new ButtonListener();
+		
+		//Buttons creation
 		buyButton=new JButton("Purchase");
-		buyButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(cost<=0) JOptionPane.showMessageDialog(null,"FAILED. Please choose the number of stops.");
-				else { 
-					//if(cost==14) new oneWeekCard(...);
-					//else if(cost==64) new oneMonthCard(...);
-					//else new smartTicket(...);
-					new BankSystem(cost);}	
-			}
-			
-		});
-		
-		
-		//Return button
 		returnButton=new JButton("Back");
-		returnButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-			}
-					
-		});
+		
+		//Adding listener to buttons
+		buyButton.addActionListener(listener);
+		returnButton.addActionListener(listener);
 		
 		
 		//Adding elements to panel
@@ -154,5 +146,28 @@ public class TicketPurchase extends JFrame{
 		frame.setResizable(false);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	class ButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			
+			//Purchase Button
+			if (e.getSource() == buyButton) {
+				if(cost<=0) JOptionPane.showMessageDialog(null,"FAILED. Please choose the number of stops.");
+				else { 
+					//if(cost==14) new oneWeekCard(cardId,passenger,category,week,month,year);
+					//else if(cost==64) new oneMonthCard(cardId,passenger,category,month,year);
+					//else new smartTicket(ticketId,Category,Route,startingStop,destinationStop);
+					new BankSystem(cost);}				}
+			
+			//Return Button
+			else if (e.getSource() == returnButton) {
+				frame.dispose();
+
+			}
+			
+
+		}
+	
 	}
 }

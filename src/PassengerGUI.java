@@ -176,12 +176,12 @@ public class PassengerGUI extends JFrame {
 			
 			//FastestBus
 			if (e.getSource() == fastWayButton) {
-				new FastestBus(passenger.getSecretariat());
+				new FastestBus(passenger.getSecretariat().getBusLineList());
 			}
 			
-			//View Bus Program
+ /* */		//View Bus Program
 			else if (e.getSource() == busesProgramButton) {
-				//Apo Secretariat
+				//passenger.getSecretariat().getBusProgram();
 
 			}
 			
@@ -190,20 +190,17 @@ public class PassengerGUI extends JFrame {
 				new TicketCalculation(passenger.getAge());
 			}
 			
-			//Ticket Shop 
+ /* */		//Ticket Shop 
 			else if (e.getSource() == ticketShopButton) {
-				new TicketPurchase(passenger.getAge());
+				new TicketPurchase(passenger);
 			}
 			
 			//Save Profile Button
 			else if (e.getSource() == profileConfigurationSaveButton) {
 				
 				passenger.setInfo(firstnameField.getText(),lastnameField.getText(),Integer.valueOf(ageField.getText()),phoneNumberField.getText(),passwordField.getText());
-				for(Passenger pas : passenger.getSec().getPassengersList()) {
-					if((passenger.getId()).equals(pas.getId())) {
-						pas=passenger;
-					}
-				}
+				passenger.getSecretariat().setPassenger(passenger);
+				
 			}
 			
 			//Deletion Button
@@ -216,14 +213,15 @@ public class PassengerGUI extends JFrame {
 
 			    System.out.println(rc);
 			    if(rc == 0) {
-			    	System.out.println("delete");
+			    	passenger.getSecretariat().deletePassenger(passenger);
+			    	passenger.deletion();
 			    }
 
 			}	
 			
 			//Logout Button
 			else if( e.getSource() == logoutButton) {
-				dispose();
+				frame.dispose();
 				mainMenuFrame.setVisible(true);
 			}
 			
