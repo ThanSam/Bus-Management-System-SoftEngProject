@@ -11,23 +11,27 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
 import javax.swing.border.Border;
 
 public class PassengerGUI extends JFrame {
 			
-	//Helpful variables
-	private JFrame frame;
+	//GUI variables
+	private JFrame frame,mainMenuFrame;
 	private ImageIcon icon;
 	private JPanel panel,panelNames,panelAgeNumber,panelIdPassword,panelButtonsUp,panelButtonsDown;
 	private JButton busesProgramButton,fastWayButton,ticketCalculationButton,ticketShopButton,profileConfigurationSaveButton,deletionButton,logoutButton;
 	private JTextField firstnameField,lastnameField,ageField,phoneNumberField,passwordField;
 	private JLabel firstnameLabel,lastnameLabel,ageLabel,phoneNumberLabel,idLabel,userId,passwordLabel;
-	private JFrame mainMenuFrame;
+
+	private Passenger passenger;
+	
 	//Passenger when LoggedIn Page
 	public PassengerGUI(Passenger passenger,JFrame mainMenuFrame) {
+		
+		//Variables Initialization
 		frame= new JFrame();
 		this.mainMenuFrame=mainMenuFrame;
+		this.passenger=passenger;
 		icon = new ImageIcon("p2.png");
 		
 		//Panels
@@ -59,94 +63,30 @@ public class PassengerGUI extends JFrame {
 		passwordField=new JTextField(passenger.getPassword());
 
 		
- /**/	//Bus Program
+		//Button Listener Creation
+		ButtonListener listener= new ButtonListener();
+		
+		
+		//Buttons Creation
 		busesProgramButton= new JButton("View buses program");
-		busesProgramButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//APO SECRETARY
-				
-			}
-			
-		});
-		
- /**/	//Fastest bus to destination
 		fastWayButton = new JButton("Fastest bus to");
-		fastWayButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new FastestBus();
-			}
-		});
-		
-		
-		
- /**/	//calculateTicket
 		ticketCalculationButton= new JButton("Ticket Calculator");
-		ticketCalculationButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new TicketCalculation(passenger);
-			}
-		});
-		
-		
-		
- /**/	//Ticket or Card Purchase
 		ticketShopButton=new JButton("Buy Ticket/Card");
-		ticketShopButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {	
-				new TicketPurchase(passenger);
-			}	
-		});
-		
-		
-		//Profile configuration
 		profileConfigurationSaveButton= new JButton("Save configuration");
-		/*profileConfigurationSaveButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				passenger.setInfo(firstnameField.getText(),lastnameField.getText(),Integer.valueOf(ageField.getText()),phoneNumberField.getText(),passwordField.getText());
-				for(Passenger pas : passenger.getSec().getPassengersList()) {
-					if((passenger.getId()).equals(pas.getId())) {
-						pas=passenger;
-					}
-				}
-			}	
-		}); */
-		
-		
-		//Profile Deletion
 		deletionButton=new JButton("Delete profile");
-		deletionButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				 String[] buttons = { "Yes","No"};
-
-				    int rc = JOptionPane.showOptionDialog(null, "Do you want delete account?", "Delete Account",
-				        JOptionPane.WARNING_MESSAGE, 1, null, buttons, buttons[1]);
-
-				    System.out.println(rc);
-				    if(rc == 0) {
-				    	System.out.println("delete");
-				    }
-
-				  }
-			
-		});
-
-		
 		logoutButton=new JButton("Logout");
-		logoutButton.setBackground(Color.LIGHT_GRAY);
-		logoutButton.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				mainMenuFrame.setVisible(true);
-			}
-			
-		});
+		//Adding listener to buttons
+		busesProgramButton.addActionListener(listener);
+		fastWayButton.addActionListener(listener);
+		ticketCalculationButton.addActionListener(listener);
+		ticketShopButton.addActionListener(listener);
+		profileConfigurationSaveButton.addActionListener(listener); 
+		deletionButton.addActionListener(listener);
+		logoutButton.addActionListener(listener);
+		
+		//Buttons Coloring
+		logoutButton.setBackground(Color.LIGHT_GRAY);
 		
 		
 		//Profile info adding to sub-panels
@@ -177,7 +117,8 @@ public class PassengerGUI extends JFrame {
 		panelButtonsDown.add(profileConfigurationSaveButton);
 		panelButtonsDown.add(logoutButton);
 		
-		//Sub-panels setting bounds
+		//Setting bounds in sub-panels
+		//Sub-panel panelNames
 		panelNames.setLayout(null);
 		firstnameLabel.setBounds(50,10,100,20);
 		lastnameLabel.setBounds(250,10,100,20);
@@ -188,17 +129,20 @@ public class PassengerGUI extends JFrame {
 		ageField.setBounds(115,50,30,20);
 		phoneNumberField.setBounds(315,50,100,20);
 		
+		//Sub-panel panelIdPassword
 		panelIdPassword.setLayout(null);
 		idLabel.setBounds(50,30,100,20);
 		userId.setBounds(130,30,80,20);
 		passwordLabel.setBounds(250,30,100,20);
 		passwordField.setBounds(315,30,100,20);
 		
+		//Sub-panel panelButtonsUp
 		panelButtonsUp.setLayout(null);
 		ticketCalculationButton.setBounds(50,20,150,20);
 		fastWayButton.setBounds(280,20,150,20);
 		ticketShopButton.setBounds(150,60,150,20);
 		
+		//Sub-panel panelButtonsDown
 		panelButtonsDown.setLayout(null);
 		busesProgramButton.setBounds(50,20,150,20);
 		deletionButton.setBounds(280,20,150,20);
@@ -206,7 +150,7 @@ public class PassengerGUI extends JFrame {
 		logoutButton.setBounds(380,60,100,20);
 		
 		
-		//Sub-panels adding to panel
+		//Adding sub-panels to panel
 		panel.add(panelNames);
 		panel.add(panelIdPassword);
 		panel.add(panelButtonsUp);
@@ -216,6 +160,7 @@ public class PassengerGUI extends JFrame {
 		BoxLayout boxlayout = new BoxLayout(panel, BoxLayout.Y_AXIS);
 		panel.setLayout(boxlayout);
 		
+		//Frame Configuration
 		frame.add(panel);
 		frame.setIconImage(icon.getImage());
 		frame.setSize(500,400);
@@ -223,5 +168,66 @@ public class PassengerGUI extends JFrame {
 		frame.setResizable(false);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	
+	class ButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			
+			//FastestBus
+			if (e.getSource() == fastWayButton) {
+				new FastestBus(passenger.getSecretariat());
+			}
+			
+			//View Bus Program
+			else if (e.getSource() == busesProgramButton) {
+				//Apo Secretariat
+
+			}
+			
+			//TicketCalculation
+			else if (e.getSource() == ticketCalculationButton) {
+				new TicketCalculation(passenger.getAge());
+			}
+			
+			//Ticket Shop 
+			else if (e.getSource() == ticketShopButton) {
+				new TicketPurchase(passenger.getAge());
+			}
+			
+			//Save Profile Button
+			else if (e.getSource() == profileConfigurationSaveButton) {
+				
+				passenger.setInfo(firstnameField.getText(),lastnameField.getText(),Integer.valueOf(ageField.getText()),phoneNumberField.getText(),passwordField.getText());
+				for(Passenger pas : passenger.getSec().getPassengersList()) {
+					if((passenger.getId()).equals(pas.getId())) {
+						pas=passenger;
+					}
+				}
+			}
+			
+			//Deletion Button
+			else if (e.getSource() == deletionButton) {
+				
+				String[] buttons = { "Yes","No"};
+
+			    int rc = JOptionPane.showOptionDialog(null, "Do you want delete account?", "Delete Account",
+			        JOptionPane.WARNING_MESSAGE, 1, null, buttons, buttons[1]);
+
+			    System.out.println(rc);
+			    if(rc == 0) {
+			    	System.out.println("delete");
+			    }
+
+			}	
+			
+			//Logout Button
+			else if( e.getSource() == logoutButton) {
+				dispose();
+				mainMenuFrame.setVisible(true);
+			}
+			
+		}
+
 	}
 }

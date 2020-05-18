@@ -29,8 +29,9 @@ public class TicketPurchase extends JFrame{
 	private JLabel stopsLabel,costLabel;
 	private JTextField costField;
 	
-	public TicketPurchase(Passenger passenger) {
+	public TicketPurchase(int age) {
 		
+		//Variables creation
 		cost=0.0;
 		frame= new JFrame();
 		icon= new ImageIcon("p2.png");
@@ -41,17 +42,17 @@ public class TicketPurchase extends JFrame{
 		costField= new JTextField("0.0");
 		costLabel= new JLabel("The total cost is: ");
 		
-		//JList creation
+		//Stops JList Creation
 		DefaultListModel defaultList= new DefaultListModel();
 		for(int i=1; i<=10; i++) {
 			defaultList.addElement("  "+i+"  ");
 		}
-		
 		stopsList=new JList(defaultList);
 		stopsList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		stopsList.setVisibleRowCount(1);
 		
-		//JList creation
+		
+		//Cards JList Creation
 		DefaultListModel defaultList1= new DefaultListModel();
 		defaultList1.addElement("Weekly Card                   ");			
 		defaultList1.addElement("                   Monthly Card");
@@ -59,18 +60,6 @@ public class TicketPurchase extends JFrame{
 		cardsList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		cardsList.setVisibleRowCount(1);
 		
-		
-		
-		//Return button
-		returnButton=new JButton("Back");
-		returnButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-			}
-			
-		});
 		
 		//MouseListener stopsList
 		MouseListener mouseListener= new MouseAdapter() {
@@ -81,7 +70,7 @@ public class TicketPurchase extends JFrame{
 		        if (stops >= 0) {
 		            Object o = stopsList.getModel().getElementAt(stops);
 		            cost=Double.valueOf(o.toString())*0.2;
-					if(passenger.getAge()<=24 && passenger.getAge()>=18) {
+					if(age<=24 && age>=18) {
 						cost=cost/2;
 					}
 		            costField.setText(String.format("%.2f", cost));
@@ -108,6 +97,7 @@ public class TicketPurchase extends JFrame{
 		};
 		cardsList.addMouseListener(mouseListener1);
 		
+		
 		//PurchaseButton
 		buyButton=new JButton("Purchase");
 		buyButton.addActionListener(new ActionListener() {
@@ -125,7 +115,19 @@ public class TicketPurchase extends JFrame{
 		});
 		
 		
-		//Adding to panel
+		//Return button
+		returnButton=new JButton("Back");
+		returnButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+			}
+					
+		});
+		
+		
+		//Adding elements to panel
 		panel.add(buyButton);
 		panel.add(returnButton);
 		panel.add(stopsList);

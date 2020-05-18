@@ -20,8 +20,9 @@ public class FastestBus extends JFrame {
 	private JButton findButton,returnButton;
 	private JLabel startingLabel,stoppingLabel,drawingLabel;
 	
-	public FastestBus() {
+	public FastestBus(ArrayList<BusLine> busLineList) {
 		
+		//Variables Creation
 		frame=new JFrame();
 		icon= new ImageIcon("p2.png");
 		panel=new JPanel();
@@ -35,6 +36,7 @@ public class FastestBus extends JFrame {
 		stoppingLabel=new JLabel("Stopping point");
 		drawingLabel= new JLabel("x- - - - - - - - - - - ->");
 		
+		//Find Buses Button 
 		findButton=new JButton("Find bus");
 		findButton.addActionListener(new ActionListener() {
 			@Override
@@ -51,7 +53,7 @@ public class FastestBus extends JFrame {
 				int i,stopsFromStart=0;
 				boolean f=true;
 				
-				for(BusLine busLine : busLines){
+				for(BusLine busLine : busLineList){
 					i=0;
 					stops=busLine.getStops();
 					while(i<stops.size() && f) {
@@ -71,10 +73,13 @@ public class FastestBus extends JFrame {
 					}
 				}
 				
+
 				if(selectedBusLine.size()==0) {
+					//No buses found
 					System.out.println("No buses can get you there.");
 				}
 				else {
+					
 					//Showing buses coming in 20 minutes or earlier
 					int min=1000,minutesFromStart;
 					String incomingBuses="";
@@ -104,6 +109,7 @@ public class FastestBus extends JFrame {
 			}
 		});
 		
+		//Return Button
 		returnButton=new JButton("Back");
 		returnButton.addActionListener(new ActionListener() {
 
@@ -114,7 +120,7 @@ public class FastestBus extends JFrame {
 			
 		});
 		
-		
+		//Adding elements to panel
 		panel.setLayout(null);
 		panel.add(startingLabel);
 		panel.add(startingField);
@@ -125,6 +131,7 @@ public class FastestBus extends JFrame {
 		panel.add(returnButton);
 
 
+		//Setting elements bounds
 		startingLabel.setBounds(30,50,100,20);
 		stoppingLabel.setBounds(250,50,100,20);
 		startingField.setBounds(20,70,100,20);
@@ -133,7 +140,7 @@ public class FastestBus extends JFrame {
 		findButton.setBounds(130,120,100,50);
 		returnButton.setBounds(295,185,80,20);
 		
-		//Frame
+		//Setting Frame
 		frame.add(panel);
 		frame.setIconImage(icon.getImage());
 		frame.setTitle("Fastest bus");

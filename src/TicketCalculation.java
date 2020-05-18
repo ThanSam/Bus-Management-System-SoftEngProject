@@ -22,21 +22,27 @@ public class TicketCalculation extends JFrame {
 	private JList timesPerWeekList,busStopsList;
 	private JButton calculationButton,returnButton;	
 	
-	public TicketCalculation(Passenger passenger) {
+	public TicketCalculation(int age) {
 		
 		cost=0.0;
+		
 		//weeklyCardCost=secretariat.getWeeklyPrice();
 		//monthlyCardCost=secretariat.getMonthlyPrice();
 		//ticketCostPerBusStop=secretariat.getTicketCostPerBusStop();
-		if(passenger.getAge()>=18 && passenger.getAge()<=24) ticketCostPerBusStop/=2;
 		
+		//Checking for discount
+		if(age>=18 && age<=24) ticketCostPerBusStop/=2;
+		
+		//Variables initialization
 		frame= new JFrame();
 		icon= new ImageIcon("p2.png");
 		panel= new JPanel();
 				
+		//Labels creation
 		timesPerWeekLabel= new JLabel("How many times a week do you take the bus?");
 		busStopsLabel= new JLabel("How many bus-stops each ride includes?");
 		
+		//JList times/week
 		DefaultListModel defaultList= new DefaultListModel();
 		for(int i=1; i<8; i++) {
 			defaultList.addElement(i+"   ");
@@ -45,6 +51,7 @@ public class TicketCalculation extends JFrame {
 		timesPerWeekList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		timesPerWeekList.setVisibleRowCount(1);
 		
+		//JList bus-stops/ride
 		DefaultListModel defaultList2 = new DefaultListModel();
 		for(int i=1; i<11; i++) {
 			defaultList2.addElement(i+" ");
@@ -54,37 +61,16 @@ public class TicketCalculation extends JFrame {
 		busStopsList.setVisibleRowCount(1);
 		
 		
-		//CalculationButton
-		calculationButton=new JButton("Calculate");
-		calculationButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(busStopsList.getSelectedValue()!=null && timesPerWeekList.getSelectedValue()!=null) cost= Double.valueOf(busStopsList.getSelectedValue().toString())*Double.valueOf(timesPerWeekList.getSelectedValue().toString()) *ticketCostPerBusStop;
-				else cost=-1;
-				
-				if(cost!=-1) {
-					if(cost>weeklyCardCost) JOptionPane.showMessageDialog(null,"Weekly Card would profit you : "+ (cost-weeklyCardCost)+"$\nMonthly Card would profit you : "+(cost*4-monthlyCardCost)+"$");
-					else JOptionPane.showMessageDialog(null,"You should buy one route tickets.\nTickets cost: "+cost+"$/week.\nWeekly card cost: "+weeklyCardCost+"$\nMonthly card cost : "+monthlyCardCost+"$");				
-					frame.dispose();
-				}
-				else {
-					JOptionPane.showMessageDialog(null,"FAILED. Please answer both questions.");
-				}
-			}
-			
-		});
+		//Button Listener Creation
+		ButtonListener listener = new ButtonListener();
 		
-		//Return Button
+		//Buttons Creation
+		calculationButton=new JButton("Calculate");
 		returnButton= new JButton("Back");
-		returnButton.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-			}
-			
-		});
+		//Adding listener to buttons
+		calculationButton.addActionListener(listener);
+		returnButton.addActionListener(listener);
 		
 		//Adding to main panel
 		panel.add(timesPerWeekLabel);
@@ -94,6 +80,7 @@ public class TicketCalculation extends JFrame {
 		panel.add(calculationButton);
 		panel.add(returnButton);
 		
+		//Sub-panels setting bounds
 		panel.setLayout(null);
 		timesPerWeekLabel.setBounds(70,40,320,20);
 		busStopsLabel.setBounds(70,150,320,20);
@@ -110,5 +97,33 @@ public class TicketCalculation extends JFrame {
 		frame.setVisible(true);
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+	}
+	
+	class ButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			
+			//Calculation Button
+			if (e.getSource() == calculationButton) {
+					if(busStopsList.getSelectedValue()!=null && timesPerWeekList.getSelectedValue()!=null) cost= Double.valueOf(busStopsList.getSelectedValue().toString())*Double.valueOf(timesPerWeekList.getSelectedValue().toString()) *ticketCostPerBusStop;
+					else cost=-1;
+				
+					if(cost!=-1) {
+						if(cost>weeklyCardCost) JOptionPane.showMessageDialog(null,"Weekly Card would profit you : "+ (cost-weeklyCardCost)+"$\nMonthly Card would profit you : "+(cost*4-monthlyCardCost)+"$");
+						else JOptionPane.showMessageDialog(null,"You should buy one route tickets.\nTickets cost: "+cost+"$/week.\nWeekly card cost: "+weeklyCardCost+"$\nMonthly card cost : "+monthlyCardCost+"$");				
+						frame.dispose();
+					}
+					else {
+						JOptionPane.showMessageDialog(null,"FAILED. Please answer both questions.");
+					}
+			}
+		
+			//View Bus Program
+			else{
+				frame.dispose();
+
+			}
+			
+		}
+
 	}
 }
