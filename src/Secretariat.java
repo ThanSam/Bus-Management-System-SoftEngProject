@@ -210,6 +210,14 @@ public class Secretariat {
 
 	}
 
+	public void setPassenger(Passenger passenger) {
+		for(Passenger p : passengerList) {
+			if(p.getId().equals(passenger.getId())) {
+				passenger=p;
+			}
+		}
+	}
+	
 	public void addBusLine(BusLine busLine) {
 		busLineList.add(busLine);
 	}
