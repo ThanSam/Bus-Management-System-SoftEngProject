@@ -7,6 +7,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,6 +19,7 @@ import javax.swing.border.TitledBorder;
 public class SendMessageToDriverOrPassengerFrame extends JFrame {
 
 	private JPanel mainPanel;
+	private ImageIcon icon;
 	private JPanel passengersPanel;
 	private JPanel passengerSpecificPanel;
 	private JPanel driversPanel;
@@ -49,6 +51,7 @@ public class SendMessageToDriverOrPassengerFrame extends JFrame {
 		driversPanel = new JPanel();
 		driverSpecificPanel = new JPanel();
 		mainPanel = new JPanel();
+		icon = new ImageIcon("p2.png");
 		checkBoxDriverPanel = new JPanel();
 		checkBoxPassengerPanel = new JPanel();
 	 passengerSpecificPanel = new JPanel();
@@ -156,10 +159,11 @@ public class SendMessageToDriverOrPassengerFrame extends JFrame {
 		mainPanel.add(driverSpecificPanel);
 
 		this.setContentPane(mainPanel);
+		this.setIconImage(icon.getImage());
 		this.setResizable(true);
 		this.setVisible(true);
 		this.setSize(650, 300);
-		this.setTitle("Send Message To Driver/Passnger");
+		this.setTitle("Send Message To Driver/Passenger");
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
