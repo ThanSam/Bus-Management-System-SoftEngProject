@@ -20,9 +20,10 @@ public class MainSecretariatFrame extends JFrame {
 	private JButton driverProgramButton;
 	private JButton sendMessageToDriverOrPassengerButton;
 	private JButton showEmergencyButton;
+	private JButton findPeakHoursButton;
 	private JButton LogOutButton;
 	private Secretariat secretariat;
-	 private JFrame mainMenuFrame;
+	private JFrame mainMenuFrame;
 
 	public MainSecretariatFrame(Secretariat aSecretariat, JFrame mainMenuFrame) {
 		this.mainMenuFrame=mainMenuFrame;
@@ -39,6 +40,7 @@ public class MainSecretariatFrame extends JFrame {
 		showPassengerListButton = new JButton(" Show Passengers List ");
 		showEmergencyButton = new JButton("Show Emergency");
 		showEmergencyButton.setForeground(Color.RED);
+		findPeakHoursButton = new JButton("Find Peak Hours");
 		LogOutButton = new JButton("Logout");
 		LogOutButton.setBackground(Color.LIGHT_GRAY);
 
@@ -49,6 +51,7 @@ public class MainSecretariatFrame extends JFrame {
 		sendMessageToDriverOrPassengerButton.addActionListener(b1);
 		showPassengerListButton.addActionListener(b1);
 		showEmergencyButton.addActionListener(b1);
+		findPeakHoursButton.addActionListener(b1);
 		LogOutButton.addActionListener(b1);
 		
 		mainPanel.setLayout(null);
@@ -58,8 +61,9 @@ public class MainSecretariatFrame extends JFrame {
 		showPassengerListButton.setBounds(90, 320, 170, 25);
 		driverProgramButton.setBounds(20, 360, 150, 25);
 		showEmergencyButton.setBounds(185, 360, 150, 25);
-		sendMessageToDriverOrPassengerButton.setBounds(50, 400, 255, 25);
-		LogOutButton.setBounds(255, 455, 100, 25);
+		findPeakHoursButton.setBounds(105, 395, 140, 25);
+		sendMessageToDriverOrPassengerButton.setBounds(50, 430, 255, 25);
+		LogOutButton.setBounds(255, 465, 100, 25);
 		
 		mainPanel.add(img);
 		mainPanel.add(createDeleteDriverButton);
@@ -67,6 +71,7 @@ public class MainSecretariatFrame extends JFrame {
 		mainPanel.add(showPassengerListButton);
 		mainPanel.add(driverProgramButton);
 		mainPanel.add(showEmergencyButton);
+		mainPanel.add(findPeakHoursButton);
 		mainPanel.add(sendMessageToDriverOrPassengerButton);
 		mainPanel.add(LogOutButton);
 	
@@ -74,7 +79,7 @@ public class MainSecretariatFrame extends JFrame {
 		this.setContentPane(mainPanel);
 		this.setIconImage(icon.getImage());
 		this.setVisible(true);
-		this.setSize(380, 525);
+		this.setSize(380, 550);
 		this.setResizable(false);
 		this.setTitle("Secretary Page");
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -113,7 +118,10 @@ public class MainSecretariatFrame extends JFrame {
 			}
 			if (e.getSource() == showEmergencyButton) {
 				ShowEmegencyFrame showPassengerListFrame = new ShowEmegencyFrame(secretariat);
-				    
+			}
+			if (e.getSource() == findPeakHoursButton) {
+				findPeakHoursGUI findPeakHoursFrame = new findPeakHoursGUI(secretariat);
+				
 			}
 			if(e.getSource() == LogOutButton) {
 				dispose();
