@@ -4,14 +4,16 @@ public class BusRoute {
 	
 	private BusLine Line;
 	private double DepartureTime;
+	private String Date;
 	private int currPassengers;
 	private int totalPassengers;
 	private Bus bus;
 	
-	public BusRoute(BusLine Line,double DepartureTime, Bus bus) {
+	public BusRoute(BusLine Line,double DepartureTime, String Date ,Bus bus) {
 		
 		this.Line = Line;
 		this.DepartureTime = DepartureTime;
+		this.Date = Date;
 		this.currPassengers = 0;
 		this.totalPassengers = 0;
 		this.bus=bus;
@@ -42,6 +44,11 @@ public class BusRoute {
 	public double getDepartureTime() {
 		
 		return DepartureTime;
+	}
+	
+	public String getDate() {
+		
+		return Date;
 	}
 	
 	public Bus getBus() {
