@@ -1,17 +1,23 @@
 import java.util.ArrayList;
+import net.sourceforge.jdatepicker.impl.UtilDateModel;
+import java.util.concurrent.ThreadLocalRandom; 
 
 public class Main {
 	
 	public static void main(String[] args) {
 		
         Secretariat s1 = new Secretariat();
+        UtilDateModel dateModel = new UtilDateModel();
+        ThreadLocalRandom random = ThreadLocalRandom.current();
         
         //Dummy data(Drivers & Passengers)
         Driver d1 = new Driver("John", "Lampis", "22", "6981144627" , "1", "1", s1);
 		Driver d2 = new Driver("Kostas", "Kampos", "40", "6941144625" , "2", "2", s1);
 		Driver d3 = new Driver("George", "Dimitriou", "34", "6981145625" , "3", "3", s1);
 		Driver d4 = new Driver("Nick", "Delis", "25", "6973444625" , "4", "4", s1);
+		
 		Passenger p1 = new Passenger("Jim","Dimitriou",22,"6981144627","1","1",s1);
+		
 		s1.addFreeDrivers(d1);
 		s1.addFreeDrivers(d2);
 		s1.addFreeDrivers(d3);
@@ -22,13 +28,6 @@ public class Main {
 		s1.addDriver(d2);
 		s1.addDriver(d3);
 		s1.addDriver(d4);
-
-		
-		MainFrame mainFrame = new MainFrame(s1);
-		//new DriverGUI(d4,s1);
-		//new PassengerGUI(p1,mainFrame);
-		//new MainSecretariatFrame(s1,mainFrame);
-		
 		
 		//Initiate bus lines.
 		
@@ -204,17 +203,44 @@ public class Main {
 		buses.add(new Bus("B4",35));
 		buses.add(new Bus("B5",35));
 		
-		//Initiate bus routes.
-		int bus = 0;
+		int bus;
+		String date;
+		
+		//Dummy data for peak hours the last five days.
+		
+		dateModel.addDay(-5);
+		for(int i=1;i<=5;i++) {
+			bus = 0 ;
+			for(BusLine line: s1.getBusLineList()) {
+				for(double time: line.getTimes()) {
+				
+					date = String.valueOf(dateModel.getDay()) + '/' + String.valueOf(dateModel.getMonth()+1) + '/' + String.valueOf(dateModel.getYear());
+					BusRoute route = new BusRoute(line,time,date,buses.get(bus));
+					route.setNumOfPassengers(random. nextInt(0,36));
+					s1.addBusRoute(route);
+				}
+				bus++;
+			}
+			dateModel.addDay(1);
+		}
 	
-		for(BusLine line: s1.getBusLineList()) {
-			for(double time: line.getTimes())
-				s1.addBusRoute(new BusRoute(line,time,buses.get(bus)));
-			bus++;
+		//Initiate bus routes for the next seven days.
+				
+		for(int i=1;i<=7;i++) {
+			bus = 0 ;
+			for(BusLine line: s1.getBusLineList()) {
+				for(double time: line.getTimes()) {
+						
+					date = String.valueOf(dateModel.getDay()) + '/' + String.valueOf(dateModel.getMonth()+1) + '/' + String.valueOf(dateModel.getYear());
+					s1.addBusRoute(new BusRoute(line,time,date,buses.get(bus)));
+				}
+				bus++;
+			}
+			dateModel.addDay(1);
 		}
 		
-		
+		MainFrame mainFrame = new MainFrame(s1);
+				
 	}
-	
 }
 
