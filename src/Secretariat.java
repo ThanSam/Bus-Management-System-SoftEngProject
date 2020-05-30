@@ -245,5 +245,18 @@ public class Secretariat {
 	public ArrayList<BusRoute> getBusRouteList() {
 		return busRouteList;
 	}
+	
+	public ArrayList<BusRoute> getBusyRoutes() {
+		
+		ArrayList<BusRoute> busyRoutes = new ArrayList<BusRoute>();
+		
+		for(BusRoute route: busRouteList) {
+			if (route.getTotalPassenger()>30) {
+				busyRoutes.add(route);
+			}
+		}
+		
+		return busyRoutes;
+	}
 
 }
