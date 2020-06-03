@@ -1,7 +1,5 @@
-import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Random;
 
 public class Secretariat {
 
@@ -14,17 +12,10 @@ public class Secretariat {
 	private ArrayList<Passenger> passengerList = new ArrayList<Passenger>();
 	private ArrayList<BusLine> busLineList = new ArrayList<BusLine>();
 	private ArrayList<BusRoute> busRouteList = new ArrayList<BusRoute>();
-	private ArrayList<unlimitedTravelCard> cardsList = new ArrayList<unlimitedTravelCard>();
-	private ArrayList<smartTicket> ticketsList = new  ArrayList<smartTicket>();
-	private double ticketPrice=0.2;
-	private double weeklyCardPrice=12;
-	private double monthlyCardPrice=44;
 	String[][] driverProgramm = new String[10][7];
 	String[][] driverline = new String[10][7];
 	String[][] messageToDriver = new String[5][100];
     String[][] freeDriver = new String[10][7];
-   
-    
 	public Secretariat() {
 
 	}
@@ -60,8 +51,6 @@ public class Secretariat {
 		int id = Integer.parseInt(aDriver.getId());
 		int y = 1;
 		boolean flag = false;
-		System.out.println(time);
-		System.out.println(driverProgramm[id][1]);
 		for (y = 1; y <= 7; y++) {
 			if (driverProgramm[id][y].equals(time)) {
 				String idBusLine = driverline[id][y];
@@ -71,10 +60,16 @@ public class Secretariat {
 			}
 		}
 		if (flag == true) {
+		 getEmergencyTime();
 			emergencyList.add(aDriver);
 		}
 
 	}
+   public String getEmergencyTime() {
+	   return time;
+   }
+
+
 
 	public void deleteDriverFromEmergancyList(Driver aDriver) {
 		for (Driver driver : emergencyList) {
@@ -154,24 +149,24 @@ public class Secretariat {
 	}
 
 	public boolean deleteProgramDriver(int id, String dateMonthYear) {
-		int day = 0;
-
+		int day=0;
+		for(day=1;day<=7;day++) {
 		if (driverProgramm[id][day] == null) {
 			return true;
 		} else {
 			driverProgramm[id][day] = null;
 		}
+	}
 		return false;
 	}
 
 	public ArrayList<String> getSpecificDriverProgramm(int aDriverId) {
-		int id = aDriverId;
 		int y = 0;
 		ArrayList<String> list = new ArrayList<String>();
 
 		for (y = 1; y <= 7; y++) {
-			if (driverProgramm[id][y] != null) {
-				list.add(driverProgramm[id][y]);
+			if (driverProgramm[aDriverId][y] != null) {
+				list.add(driverProgramm[aDriverId][y]);
 			}
 		}
 		return list;
@@ -205,6 +200,10 @@ public class Secretariat {
 		}
 	}
 
+	
+	
+	
+	//Passenger
 	public void addPassenger(Passenger pas) {
 		passengerList.add(pas);
 	}
@@ -227,6 +226,13 @@ public class Secretariat {
 		}
 	}
 	
+	
+	
+	
+	
+	
+	
+	//BusLine
 	public void addBusLine(BusLine busLine) {
 		busLineList.add(busLine);
 	}
@@ -268,80 +274,4 @@ public class Secretariat {
 		return busyRoutes;
 	}
 
-	public double getPrice(int i) {
-		switch(i) {
-			case 1:
-				return this.ticketPrice;
-			case 2: 
-				return this.weeklyCardPrice;
-			case 3:
-				return this.monthlyCardPrice;
-			default: 
-				return 0;
-		}
-
-	}
-	
-	public String getCardID(Passenger passenger) {
-		Random random= new Random();
-		return passenger.getId()+Integer.toString(random.nextInt());
-	}
-	
-	public void addTicketsList(smartTicket s1) {
-		
-		ticketsList.add(s1);
-		
-		String timeStamp = new SimpleDateFormat("yyyy/MM/dd--HH:mm:ss").format(Calendar.getInstance().getTime());
-		
-		String[] timeTable = timeStamp.split("/");
-		String currentDay = timeTable[2];
-		
-		for(smartTicket s: ticketsList) {
-			
-			String[] parts = s.getPurchaseTime().split("/");
-			String day = parts[2];
-			
-			
-			if(Math.abs(Integer.valueOf(day)-Integer.valueOf(currentDay))>=1)
-				ticketsList.remove(s);
-		}
-	}
-	
-	public void addCardsList(unlimitedTravelCard card) {
-		
-		
-		String timeStamp = new SimpleDateFormat("yyyy/MM/dd--HH:mm:ss").format(Calendar.getInstance().getTime());
-		String[] timeTable = timeStamp.split("/");
-		String currentYear = timeTable[0]; 
-		String currentMonth = timeTable[1];
-		String currentDay = timeTable[2];
-		
-		cardsList.add(card);
-		for(unlimitedTravelCard c: cardsList) {
-
-			if(c.getCost()==monthlyCardPrice) {
-				
-				String[] parts = ((oneMonthCard)c).getPurchaseTime().split("/");
-				String year = parts[0]; 
-				String month = parts[1];
-				String day = parts[2];
-				
-				if(Math.abs((Integer.valueOf(month)-Integer.valueOf(currentMonth)))>=2)
-					cardsList.remove(c);
-				}
-			
-			else {
-				
-				String[] parts = ((oneWeekCard)c).getPurchaseTime().split("/");
-				String year = parts[0]; 
-				String month = parts[1];
-				String day = parts[2];
-				
-				if(Math.abs((Integer.valueOf(day)-Integer.valueOf(currentDay)))>7)
-					cardsList.remove(c);
-			}
-	
-		}
-
-	}
 }

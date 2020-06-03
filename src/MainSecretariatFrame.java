@@ -22,12 +22,12 @@ public class MainSecretariatFrame extends JFrame {
 	private JButton showEmergencyButton;
 	private JButton findPeakHoursButton;
 	private JButton LogOutButton;
-	private Secretariat secretariat;
+	private Secretariat sec;
 	private JFrame mainMenuFrame;
 
-	public MainSecretariatFrame(Secretariat aSecretariat, JFrame mainMenuFrame) {
+	public MainSecretariatFrame(Secretariat sec) {
 		this.mainMenuFrame=mainMenuFrame;
-		this.secretariat=aSecretariat;
+		this.sec=sec;
 		
 		mainPanel = new JPanel();
 		icon = new ImageIcon("p2.png");
@@ -87,7 +87,7 @@ public class MainSecretariatFrame extends JFrame {
 	}
 
 	public void setSecreatariat(Secretariat secretariat) {
-		this.secretariat = secretariat;
+		this.sec = secretariat;
 	}
 
 	class ButtonListener implements ActionListener {
@@ -95,37 +95,44 @@ public class MainSecretariatFrame extends JFrame {
 			if (e.getSource() == createDeleteDriverButton) {
 				CreateDeleteDriverFrame createDeleteDriver = new CreateDeleteDriverFrame();
 				createDeleteDriver.setVisible(true);
-				createDeleteDriver.setSecreatariat(secretariat);
+				createDeleteDriver.setSecreatariat(sec);
+				dispose();
 			}
 			if (e.getSource() == showDriverIdListButton) {
-				ShowDriverListFrame showDriverListFrame = new ShowDriverListFrame(secretariat);
+				ShowDriverListFrame showDriverListFrame = new ShowDriverListFrame(sec);
 				showDriverListFrame.setVisible(true);
+				dispose();
 
 			}
 			if (e.getSource() == driverProgramButton) {
-				DriverProgramFrame driverProgramFrame = new DriverProgramFrame(secretariat);
-				driverProgramFrame.setSecreatariat(secretariat);
+				DriverProgramFrame driverProgramFrame = new DriverProgramFrame(sec);
+				driverProgramFrame.setSecreatariat(sec);
+				dispose();
 			}
 
 		
 			if (e.getSource() == sendMessageToDriverOrPassengerButton) {
-				SendMessageToDriverOrPassengerFrame sendMessageToDriverOrPassngerFrame = new SendMessageToDriverOrPassengerFrame(secretariat);
+				SendMessageToDriverOrPassengerFrame sendMessageToDriverOrPassngerFrame = new SendMessageToDriverOrPassengerFrame(sec);
+				dispose();
 
 			}
 			if (e.getSource() == showPassengerListButton) {
-				ShowPassengerListFrame showPassengerListFrame = new ShowPassengerListFrame(secretariat);
+				ShowPassengerListFrame showPassengerListFrame = new ShowPassengerListFrame(sec);
+				dispose();
 
 			}
 			if (e.getSource() == showEmergencyButton) {
-				ShowEmegencyFrame showPassengerListFrame = new ShowEmegencyFrame(secretariat);
+				ShowEmegencyFrame showPassengerListFrame = new ShowEmegencyFrame(sec);
+			dispose();
 			}
 			if (e.getSource() == findPeakHoursButton) {
-				findPeakHoursGUI findPeakHoursFrame = new findPeakHoursGUI(secretariat);
+				findPeakHoursGUI findPeakHoursFrame = new findPeakHoursGUI(sec);
+			dispose();
 				
 			}
 			if(e.getSource() == LogOutButton) {
 				dispose();
-				mainMenuFrame.setVisible(true);
+		      new MainFrame(sec);
 			}
 			
 		}

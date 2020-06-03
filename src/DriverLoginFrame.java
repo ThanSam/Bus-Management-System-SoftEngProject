@@ -26,13 +26,13 @@ public class DriverLoginFrame extends JFrame {
 	private JButton ReturnButton;
 
 	private Secretariat sec;
-	private Driver dr;
+	private Driver aDriver;
 	private JPasswordField passwordField;
 	private ArrayList<Driver> driverList = new ArrayList<Driver>();
 
 	public DriverLoginFrame(Secretariat aSecretariat, Driver aDriver, JFrame mainMenuFrame) {
 		this.mainMenuFrame = mainMenuFrame;
-		this.dr = aDriver;
+		this.aDriver = aDriver;
 		this.sec = aSecretariat;
 
 		panel = new JPanel();
@@ -40,28 +40,14 @@ public class DriverLoginFrame extends JFrame {
 		icon = new ImageIcon("p2.png");
 		UserIdLabel = new JLabel("User ID");
 		UserIdLabel.setFont(new Font("Username", Font.PLAIN, 16));
-		userIdField = new JTextField(11);
+		userIdField = new JTextField("1");
 		PasswordLabel = new JLabel("Password");
 		PasswordLabel.setFont(new Font("Username", Font.PLAIN, 16));
-		passwordField = new JPasswordField(10);
+		passwordField = new JPasswordField("1");
 		img = new JLabel(new ImageIcon("p4.png"));
 		LogInButton = new JButton("Login");
 		ReturnButton = new JButton("Back");
 
-		userIdField.setText("Enter userID");
-		userIdField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) {
-				if (userIdField.getText().equals("Enter userID")) {
-					userIdField.setText("");
-				}
-			}
-
-			public void focusLost(FocusEvent arg0) {
-				if (userIdField.getText().equals("")) {
-					userIdField.setText("Enter userID");
-				}
-			}
-		});
 
 		ButtonListener b1 = new ButtonListener();
 		LogInButton.addActionListener(b1);
@@ -97,13 +83,14 @@ public class DriverLoginFrame extends JFrame {
 	class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
           String outcome=" ";
+          userIdField.setText("1");       
+          passwordField.setText("1");
 			if (e.getSource().equals(LogInButton)) {
 				driverList = sec.getDriverList();
 				for (Driver driver : driverList) {
 					if ((userIdField.getText().equals(driver.getId()))
 							&& (passwordField.getText().equals(driver.getPassword()))) {
 						DriverGUI driverGUI = new DriverGUI(driver, sec);
-						driverGUI.setMainMenuFrame(mainMenuFrame);
 						outcome="ok";
 						dispose();
 						break;

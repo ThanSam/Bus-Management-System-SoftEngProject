@@ -21,10 +21,12 @@ public class MessagesDriverGUI extends JFrame{
 	private ImageIcon icon;
 	private JTextArea  printMessageDriverText;
 	private JButton BackButton;
-
+private Secretariat sec;
+private Driver aDriver;
 	
-	public MessagesDriverGUI(Secretariat aSecretariat,Driver aDriver) {
-		
+	public MessagesDriverGUI(Secretariat sec,Driver aDriver) {
+		this.sec=sec;
+		this.aDriver=aDriver;
 		mainPanel = new JPanel();
 		icon = new ImageIcon("p2.png");
 		BackButton = new JButton("Back");
@@ -38,8 +40,8 @@ public class MessagesDriverGUI extends JFrame{
 		int id = Integer.parseInt(aDriver.getId());
 		String[][] messageDriverList = new String[5][7];
 		int  y = 0;
-		aSecretariat.messageListToDriver(id,"Emergency Route!\nBus Route 2K at 12:00!");
-		messageDriverList = aSecretariat.getMessageListDriver();
+		sec.messageListToDriver(id,"Emergency Route!\nBus Route 2K at 12:00!");
+		messageDriverList = sec.getMessageListDriver();
 			for (y = 0; y < 5; y++) {
 				if (messageDriverList[id][y] != null) {
 					printMessageDriverText.append("New Message, Time:11:00\n" + messageDriverList[id][y]+"\n");
@@ -76,8 +78,8 @@ public class MessagesDriverGUI extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 			
 				if(e.getSource().equals(BackButton)) {
-					
-					dispose();
+					 dispose();
+				      new DriverGUI(aDriver,sec);
 					
 				}
 	  

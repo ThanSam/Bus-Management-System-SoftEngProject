@@ -22,6 +22,7 @@ public class SecretaryLoginFrame extends JFrame {
 	private JFrame mainMenuFrame;
 	private Secretariat sec;
 	public SecretaryLoginFrame(JFrame mainMenuFrame,Secretariat sec) {
+		
 		this.mainMenuFrame=mainMenuFrame;
 		this.sec=sec;
 		panel = new JPanel();
@@ -46,21 +47,6 @@ public class SecretaryLoginFrame extends JFrame {
 		LoginButton.setBounds(93, 370, 100, 25);
 		ReturnButton.setBounds(200,430,80,25);
 		
-		usernameField.setText("Enter userID");
-		usernameField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) {
-				if (usernameField.getText().equals("Enter userID")) {
-					usernameField.setText("");
-				}
-			}
-
-			public void focusLost(FocusEvent arg0) {
-				if (usernameField.getText().equals("")) {
-					usernameField.setText("Enter userID");
-				}
-			}}
-		);
-	
 		
 		panel.add(img);
 		panel.add(usernameLabel);
@@ -90,14 +76,17 @@ public class SecretaryLoginFrame extends JFrame {
 		public void actionPerformed(ActionEvent e) { 
 			
 			if(e.getSource().equals(LoginButton)) {
-				
-				MainSecretariatFrame mainSecretariatFrame = new MainSecretariatFrame(sec,mainMenuFrame);
+		
+				MainSecretariatFrame mainSecretariatFrame = new MainSecretariatFrame(sec);
 				mainSecretariatFrame.setSecreatariat(sec);
 				dispose();
+				
 			}
 			else if(e.getSource().equals(ReturnButton)) {
+				
 				dispose();
 			 mainMenuFrame.setVisible(true);
+			 
 			}
 		}
 	}

@@ -76,9 +76,11 @@ public class DriverGUI extends JFrame {
 
 			if (e.getSource().equals(ScheduleButton)) {
 				ScheduleGUI sch = new ScheduleGUI(sec, aDriver);
+				dispose();
 			}
 			if (e.getSource().equals(InboxButton)) {
 				MessagesDriverGUI mess = new MessagesDriverGUI(sec, aDriver);
+				dispose();
 			}
 			if (e.getSource().equals(EmergencyButton)) {
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("d/M/yyyy");
@@ -86,7 +88,6 @@ public class DriverGUI extends JFrame {
 				LocalDateTime now = LocalDateTime.now();
 				LocalDateTime now3 = LocalDateTime.now();
 				String hour = h.format(now3);
-				System.out.println(hour);
 				String time = dtf.format(now);
 					if (hour.equals("8")||hour.equals("9")||hour.equals("10")||hour.equals("11")||hour.equals("12")||hour.equals("13")||hour.equals("14")||hour.equals("15")||hour.equals("16")) {
 						time = time + " " + "8:00-16:00";
@@ -99,20 +100,15 @@ public class DriverGUI extends JFrame {
 					
 					}
 					
-					
+			
 					
 				}
 			if (e.getSource().equals(LogOutButton)) {
-				mainMenuFrame.setVisible(true);
-				;
 				dispose();
+			      new MainFrame(sec);
 			}
 
 		}
-	}
-
-	public void setMainMenuFrame(JFrame mainMenuFrame) {
-		this.mainMenuFrame = mainMenuFrame;
 	}
 
 }

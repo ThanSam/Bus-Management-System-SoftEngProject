@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
+
+
 public class ShowEmegencyFrame extends JFrame {
 
 	private ImageIcon icon;
@@ -27,12 +29,12 @@ public class ShowEmegencyFrame extends JFrame {
 	private ArrayList<Driver> emergencyList = new ArrayList<Driver>();
 	private ArrayList<Driver> freeDrivers = new ArrayList<Driver>();
 	private ArrayList<Driver> driverList = new ArrayList<Driver>();
-	private JLabel EmergenciesLabel;
+	private JLabel emergenciesLabel;
 	private JLabel freeDriversLabel;
 	private JPanel driversWhoPushButtonPanel;
 	private JPanel driversFreePanel;
 	private JButton sendDriverButton;
-	private JButton BackButton;
+	private JButton backButton;
 	private JButton refreshButton;
 	private JPanel mainPanel;
 	private Secretariat sec;
@@ -55,12 +57,12 @@ public class ShowEmegencyFrame extends JFrame {
 		refreshButton= new JButton();
 		refreshButton.setIcon(refreshIcon);
 		img = new JLabel(new ImageIcon("p8.png"));
-		EmergenciesLabel = new JLabel("Emergencies");
+		emergenciesLabel = new JLabel("Emergencies");
 		freeDriversLabel = new JLabel("Free Drivers");
 		driversWhoPushButtonPanel = new JPanel();
 		driversFreePanel = new JPanel();
 		sendDriverButton = new JButton("Send Driver!");
-		BackButton = new JButton("Back");
+		backButton = new JButton("Back");
 		sendDriverButton.setForeground(Color.red);
 		mainPanel = new JPanel();
 
@@ -96,25 +98,26 @@ public class ShowEmegencyFrame extends JFrame {
 		ButtonListener b1 = new ButtonListener();
 		sendDriverButton.addActionListener(b1);
 		refreshButton.addActionListener(b1);
-
+		backButton.addActionListener(b1);
+		
 		mainPanel.setLayout(null);
 		img.setBounds(180, 0, 375, 200);
-		EmergenciesLabel.setBounds(150, 225, 100, 25);
+		emergenciesLabel.setBounds(150, 225, 100, 25);
 		freeDriversLabel.setBounds(460, 225, 100, 25);
 		scroll.setBounds(15, 250, 400, 140);
 		scroll2.setBounds(425, 250, 300, 140);
 		sendDriverButton.setBounds(220, 440, 150, 25);
 		refreshButton.setBounds(402, 400, 35, 35);
-		BackButton.setBounds(475, 450, 80, 25);
+		backButton.setBounds(475, 450, 80, 25);
 
 		mainPanel.add(img);
-		mainPanel.add(EmergenciesLabel);
+		mainPanel.add(emergenciesLabel);
 		mainPanel.add(freeDriversLabel);
 		mainPanel.add(scroll);
 		mainPanel.add(scroll2);
 		mainPanel.add(sendDriverButton);
 		mainPanel.add(refreshButton);
-		mainPanel.add(BackButton);
+		mainPanel.add(backButton);
 
 		this.setContentPane(mainPanel);
 		this.setIconImage(icon.getImage());
@@ -128,7 +131,7 @@ public class ShowEmegencyFrame extends JFrame {
 
 	class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			
+			String driverLineID = null;
 			if (e.getSource().equals(sendDriverButton)) {
 			if(emergencyList.isEmpty()||freeDrivers.isEmpty()) {
 				JOptionPane.showMessageDialog(mainPanel, "You can not matche the drivers");
@@ -147,8 +150,13 @@ public class ShowEmegencyFrame extends JFrame {
 				    	driverList=sec.getDriverList();
 				    	for(Driver driver:driverList) {
 				    		if(driver.getId().equals(emergencyparts[0])) {
+				    			int id = Integer.parseInt(driver.getId());
+				       sec.deleteProgramDriver(id, sec.getEmergencyTime());
+				    		driverLineID=driver.getLineid();
 				    			emergencyList.remove(driver);}
 				    		if(driver.getId().equals(freeparts[0])) {
+				    			int id = Integer.parseInt(driver.getId());
+				    			sec.addProgramDriverBusLine(id,  sec.getEmergencyTime(), driverLineID);
 				    			freeDrivers.remove(driver);
 				    		}
 				    		  
@@ -157,9 +165,15 @@ public class ShowEmegencyFrame extends JFrame {
 			}
 			}
 			else if (e.getSource().equals(refreshButton)) {
-	
+				dispose();
+				new ShowEmegencyFrame(sec);
+				
 			}
+		
+		if (e.getSource().equals(backButton)) {
+			new MainSecretariatFrame(sec);
+			dispose();
 		}
-
+		}
 	}
 }

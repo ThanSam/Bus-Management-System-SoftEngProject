@@ -16,26 +16,34 @@ public class ShowDriverListFrame extends JFrame {
 	private ImageIcon icon;
 	private JPanel printPanel = new JPanel();
 	private ArrayList<String> id_Username_UsercodeList = new ArrayList<String>();
-	private JButton backButton = new JButton("Back");
+	private JButton backButton;
 	private JTextArea printArea;
 	private JLabel title;
-	private JLabel IdUsernameLabel;
+	private Secretariat sec;
 
-
-	public ShowDriverListFrame(Secretariat secretariat) {
-
+	public ShowDriverListFrame(Secretariat sec) {
+      this.sec=sec;
 		icon = new ImageIcon("p2.png");
-		title = new JLabel("All Drivers's ID");
-		IdUsernameLabel = new JLabel("ID");
+		title = new JLabel("All Drivers's Information");
 		printArea= new JTextArea(7, 7);
-	
+		backButton = new JButton("Back");
 		
 		
-		for(Driver d:secretariat.getDriverList()) {
+		for(Driver d:sec.getDriverList()) {
 			
 			String id = d.getId();
-			
-			printArea.append(id+"\n");
+			String firstName = d.getFirstname();
+			String lastName = d.getLastname();
+			String age = d.getAge();
+			String phone = d.getPhoneNumber();
+			String password = d.getPassword();
+			printArea.append("ID: "+id+"\n");
+			printArea.append("FirstName: " + firstName);
+			printArea.append("\nLastName: " + lastName);
+			printArea.append("\nPhoneNumber: " + phone);
+			printArea.append("\nAge: " + age);
+			printArea.append("\nPassword: " + password);
+			printArea.append("\n\n");
 		}
 	
 		
@@ -48,12 +56,10 @@ public class ShowDriverListFrame extends JFrame {
 		
 		printPanel.setLayout(null);
 		title.setBounds(35, 0, 180, 25);
-		IdUsernameLabel.setBounds(40, 30, 170, 25);
-		scroll.setBounds(40, 50, 100, 170);
-		backButton.setBounds(150, 230, 80,25);
+		scroll.setBounds(20, 50, 300, 270);
+		backButton.setBounds(120, 320, 80,25);
 		
 		printPanel.add(title);
-		printPanel.add(IdUsernameLabel);
 		printPanel.add(scroll);
 	    printPanel.add(backButton);
 	    
@@ -61,7 +67,7 @@ public class ShowDriverListFrame extends JFrame {
 		this.setContentPane(printPanel);
 		this.setResizable(false);
 		this.setVisible(true);
-		this.setSize(250, 300);
+		this.setSize(340, 400);
 		this.setTitle("Drivers");
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		}
@@ -69,7 +75,8 @@ public class ShowDriverListFrame extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			
 			if(e.getSource().equals(backButton)) {
-			dispose();
+				new MainSecretariatFrame(sec);
+				dispose();
 			}
 		
 		}

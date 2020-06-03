@@ -1,4 +1,4 @@
-import java.awt.Choice;
+import java.awt.Choice; 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -83,11 +83,11 @@ public class DriverProgramFrame extends JFrame {
 		printSpecificDriverProgramPanel = new JPanel();
 		printDriversProgramPanel = new JPanel();
 		backPanel = new JPanel();
-		idDriverCreateText = new JTextField(5);
+		idDriverCreateText = new JTextField("1",5);
 		dateMonthYearCreateText = new JTextField(15);
-		idDriverDeleteText = new JTextField(10);
+		idDriverDeleteText = new JTextField("1",5);
 		dateMonthYearDeleteText = new JTextField(15);
-		printSpecificDriverProgramText = new JTextField(5);
+		printSpecificDriverProgramText = new JTextField("1",5);
 		printSpecificDriverProgramTextArea = new JTextArea(9, 15);
 		printAllDriversProgramText = new JTextArea(9, 15);
 		idDriverCreateLabel = new JLabel("Id Driver");
@@ -214,13 +214,14 @@ public class DriverProgramFrame extends JFrame {
 			}
 
 			if (e.getSource().equals(deleteButton)) {
-				dateMonthYear = "";
+				String date;
 				id = Integer.parseInt(idDriverDeleteText.getText());
 				dateMonthYear = String.valueOf(model1.getValue());
 				StringBuilder sb = new StringBuilder(dateMonthYear);
 				sb.delete(11, 20);
 				dateMonthYear = String.valueOf(sb);
-				if (sec.deleteProgramDriver(id, dateMonthYear) == true) {
+				date =dateMonthYear.substring(0,3);
+				if (sec.deleteProgramDriver(id, date) == true) {
 					JOptionPane.showMessageDialog(mainPanel,
 							"The driver with ID: " + id + " has nothing in this date: " + dateMonthYear);
 				}
@@ -265,7 +266,9 @@ public class DriverProgramFrame extends JFrame {
 			}
 
 			if (e.getSource().equals(backButton)) {
+				new MainSecretariatFrame(sec);
 				dispose();
+			     
 
 			}
 		}

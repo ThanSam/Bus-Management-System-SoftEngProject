@@ -7,14 +7,14 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+
+
 
 
 
@@ -23,32 +23,37 @@ public class ScheduleGUI extends JFrame{
 	private JPanel panel,printSpecificDriverProgramPanel;
 	private ImageIcon icon;
 	private JTextArea printSpecificDriverProgramTextArea;
-	private JButton BackButton;
-	
-	private Secretariat sec = new Secretariat();
-	private int id;
+	private JButton backButton;
+	private Driver aDriver;
+	private Secretariat sec;
+	private int id=0;
+	String[][] idDriverList1 = new String[5][7];
+	String[][] driverLineList = new String[5][7];
 	
 	public ScheduleGUI(Secretariat aSecretariat ,Driver aDriver) {
-		this.id=id;
-		sec = aSecretariat;
+		this.sec = aSecretariat;
+		this.aDriver=aDriver;
 		
 		panel = new JPanel();
 		icon = new ImageIcon("p2.png");
 		printSpecificDriverProgramPanel= new JPanel();
-		BackButton = new JButton("Back");
+		backButton = new JButton("Back");
 		
 		
-		int id = Integer.parseInt(aDriver.getId());
+	     id = Integer.parseInt(aDriver.getId());
 		printSpecificDriverProgramTextArea = new JTextArea(15, 35);
-		
-		ArrayList<String> scheduleList  = new ArrayList<String>();
-		scheduleList = sec.getSpecificDriverProgramm(id);
-		for (int i= 0; i<scheduleList.size(); i++) {
-			if (scheduleList.get(i)!= null) {
-				printSpecificDriverProgramTextArea.append(scheduleList.get(i) + "\nBus Line: 2K\nTime: 14.00, 15.00, 16.00\n\n");
-			}
+		idDriverList1 = sec.getList();
+		driverLineList = sec.getDriverLineList();
+		int y=0;
+			for (y = 0; y < 7; y++) {
+				if (idDriverList1[id][y] != null) {
+					printSpecificDriverProgramTextArea.append("ID:" + id + "  timetable: " + idDriverList1[id][y]
+							+ " LineId: " + driverLineList[id][y] + "\n");
+				}
 		}
 	
+		ButtonListener b1 = new ButtonListener();
+		backButton.addActionListener(b1);
 		
 		printSpecificDriverProgramTextArea.setEditable(false); // set textArea non-editable
 		JScrollPane scroll1 = new JScrollPane(printSpecificDriverProgramTextArea);
@@ -58,7 +63,7 @@ public class ScheduleGUI extends JFrame{
 		printSpecificDriverProgramPanel.add(scroll1);
 		
 		panel.add(printSpecificDriverProgramPanel);
-		panel.add(BackButton);
+		panel.add(backButton);
 
 		this.setContentPane(panel);
 		this.setIconImage(icon.getImage());
@@ -67,6 +72,15 @@ public class ScheduleGUI extends JFrame{
 		this.setTitle("Weekly Schedule");
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
-	
-	}
+	class ButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+		
+			if (e.getSource().equals(backButton)) {
+				 dispose();
+			      new DriverGUI(aDriver,sec);
+			     
 
+			}
+	}
+	}
+}

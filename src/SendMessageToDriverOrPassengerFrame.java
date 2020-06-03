@@ -1,4 +1,4 @@
-import java.awt.Checkbox;
+import java.awt.Checkbox; 
 import java.awt.CheckboxGroup;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -38,15 +38,18 @@ public class SendMessageToDriverOrPassengerFrame extends JFrame {
 	private JLabel passengerIdLabel;
 	private JLabel messageToDriver;
 	private JLabel driverIdLabel;
-	private Secretariat aSecretariat;
+	private Secretariat sec;
 	private Checkbox checkBox2;
 	private Checkbox checkBox1;
 	private Checkbox checkBox4;
 	private Checkbox checkBox3;
 	private JLabel label;
+	private JButton backButton;
 
-	public SendMessageToDriverOrPassengerFrame(Secretariat aSecretariat) {
-		this.aSecretariat = aSecretariat;
+	public SendMessageToDriverOrPassengerFrame(Secretariat sec) {
+		this.sec = sec;
+		
+		backButton= new JButton("Back");
 		passengersPanel = new JPanel();
 		driversPanel = new JPanel();
 		driverSpecificPanel = new JPanel();
@@ -71,6 +74,7 @@ public class SendMessageToDriverOrPassengerFrame extends JFrame {
 		ButtonListener b1 = new ButtonListener();
 		sendMessageToSpecificDriverButton.addActionListener(b1);
 		sendMessageToAllDriversButton.addActionListener(b1);
+		backButton.addActionListener(b1);
 
 		
 		CheckboxGroup cbg = new CheckboxGroup();
@@ -157,12 +161,13 @@ public class SendMessageToDriverOrPassengerFrame extends JFrame {
 		mainPanel.add(passengerSpecificPanel);
 		mainPanel.add(driversPanel);
 		mainPanel.add(driverSpecificPanel);
+		mainPanel.add(backButton);
 
 		this.setContentPane(mainPanel);
 		this.setIconImage(icon.getImage());
 		this.setResizable(true);
 		this.setVisible(true);
-		this.setSize(650, 300);
+		this.setSize(600, 300);
 		this.setTitle("Send Message To Driver/Passenger");
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
@@ -175,7 +180,7 @@ public class SendMessageToDriverOrPassengerFrame extends JFrame {
 				String message = "";
 				id = Integer.parseInt(driverIdText.getText());
 				message = (driverMessageText.getText());
-				aSecretariat.messageListToDriver(id, message);
+				sec.messageListToDriver(id, message);
 
 			}
 
@@ -196,7 +201,11 @@ public class SendMessageToDriverOrPassengerFrame extends JFrame {
 				message = (passengerMessageText.getText());
 			}
 		
+			if(e.getSource().equals(backButton)) {
+				new MainSecretariatFrame(sec);
+				dispose();
 
+			}
 		}
 	}
 

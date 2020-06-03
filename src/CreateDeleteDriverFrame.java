@@ -7,10 +7,10 @@ import java.awt.event.FocusListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -29,11 +29,17 @@ public class CreateDeleteDriverFrame extends JFrame {
 	private JButton backButton;
 
 	private JTextField idField;
+	private JLabel idLabel;
 	private JTextField passwordField;
+	private JLabel passwordLabel;
 	private JTextField firstNameField;
+	private JLabel firstNameLabel;
 	private JTextField lastNameField;
+	private JLabel lastNameLabel;
 	private JTextField ageField;
+	private JLabel ageLabel;
 	private JTextField phoneField;
+	private JLabel phoneLabel;
 	private JTextField deleteField;
 	private Secretariat sec;
 	private Driver aDriver;
@@ -50,11 +56,19 @@ public class CreateDeleteDriverFrame extends JFrame {
 		backButton = new JButton("Back");
 
 		idField = new JTextField(10);
+		idLabel= new JLabel("ID");
 		passwordField = new JTextField(10);
+		passwordLabel = new JLabel("Password:");
 		firstNameField = new JTextField(10);
+		firstNameLabel= new JLabel("First Name:");
 	    lastNameField = new JTextField(10);
+		lastNameLabel= new JLabel("Last Name:");
 	    ageField = new JTextField(10);
+		ageLabel= new JLabel("Age:");
 	    phoneField = new JTextField(10);
+		phoneLabel= new JLabel("Phone:");
+		
+		  deleteField=new JTextField(10);
 	    
 		idField.setText("Enter id");
 		idField.addFocusListener(new FocusListener() {
@@ -145,6 +159,24 @@ public class CreateDeleteDriverFrame extends JFrame {
 			}
 		});
 		
+		
+		
+		deleteField.setText("Enter ID");
+		deleteField.addFocusListener(new FocusListener() {
+			public void focusGained(FocusEvent e) {
+				if (deleteField.getText().equals("Enter ID")) {
+					deleteField.setText("");
+				}
+			}
+
+			public void focusLost(FocusEvent arg0) {
+				if (deleteField.getText().equals("")) {
+					deleteField.setText("Enter ID");
+				}
+			}
+		});
+		
+		
 		ButtonListener b1 = new ButtonListener();
 		createButton.addActionListener(b1);
 		deleteButton.addActionListener(b1);
@@ -154,11 +186,17 @@ public class CreateDeleteDriverFrame extends JFrame {
 		createPanel.setBorder(new TitledBorder(new EtchedBorder(), "Create Driver Area"));
 		createPanel.setLayout(new GridLayout(0, 1));
 		
+		createPanel.add(firstNameLabel);
 		createPanel.add(firstNameField);
+		createPanel.add(lastNameLabel);
 		createPanel.add(lastNameField);
+		createPanel.add(ageLabel);
 		createPanel.add(ageField);
+		createPanel.add(phoneLabel);
 		createPanel.add(phoneField);
+		createPanel.add(idLabel);
 		createPanel.add(idField);
+		createPanel.add(passwordLabel);
 		createPanel.add(passwordField);
 		createPanel.add(createButton);
 		
@@ -166,15 +204,14 @@ public class CreateDeleteDriverFrame extends JFrame {
 		deletePanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.LIGHT_GRAY));
 		deletePanel.setBorder(new TitledBorder(new EtchedBorder(), "Delete Driver Area"));
 		deletePanel.setLayout(new GridLayout(0, 1));
-		deleteField = new JTextField("Enter id");
 		deletePanel.add(deleteField);
 		deletePanel.add(deleteButton);
 
 		mainPanel.setLayout(null);
 		
-		createPanel.setBounds(0, 0, 270, 180);
-		deletePanel.setBounds(0, 181, 270, 70);
-		backButton.setBounds(190, 280, 75, 20);
+		createPanel.setBounds(0, 0, 280, 280);
+		deletePanel.setBounds(0, 300, 280, 70);
+		backButton.setBounds(110, 380, 70, 20);
 		
 		mainPanel.add(createPanel);
 		mainPanel.add(deletePanel);
@@ -185,7 +222,7 @@ public class CreateDeleteDriverFrame extends JFrame {
 		this.setIconImage(icon.getImage());
 		this.setResizable(false);
 		this.setVisible(true);
-		this.setSize(290, 350);
+		this.setSize(290, 450);
 		this.setTitle("Create/Delete Driver");
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
@@ -220,8 +257,6 @@ public class CreateDeleteDriverFrame extends JFrame {
 			      sec.addFreeDrivers(aDriver);
 		             sec.addDriver(aDriver);
 					JOptionPane.showMessageDialog(null, "You have create succesfully the driver: "+ aDriver.getId()+".");
-					dispose();
-
 				} else {
 
 					JOptionPane.showMessageDialog(null,outcome);
@@ -243,6 +278,7 @@ public class CreateDeleteDriverFrame extends JFrame {
 
 			}
 			if (e.getSource().equals(backButton)) {
+				new MainSecretariatFrame(sec);
 				dispose();
 			}
 

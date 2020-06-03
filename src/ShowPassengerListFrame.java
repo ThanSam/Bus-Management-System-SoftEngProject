@@ -20,22 +20,24 @@ public class ShowPassengerListFrame extends JFrame {
 	private JPanel mainPanel = new JPanel();
 	private JButton backButton = new JButton("Back");
 	private JLabel title;	
-	private JLabel IdUsernameLabel;
-
+    private Secretariat sec;
 	
 	
-	public ShowPassengerListFrame(Secretariat s1) {
-
+	public ShowPassengerListFrame(Secretariat sec ) {
+        this.sec = sec;
 		icon = new ImageIcon("p2.png");
 		title = new JLabel("All Passengers's ID");
-		IdUsernameLabel = new JLabel("ID");
 		printArea = new JTextArea(7, 7);
 		
 		
-		for(Passenger p: s1.getPassengerList()) 
-			printArea.append(p.getId()+"\n");
-		
-		
+		for(Passenger p: sec.getPassengerList()) {
+			printArea.append("ID:"+p.getId()+"\n");
+			printArea.append("First Name: "+p.getFirstName()+"\n");
+			printArea.append("Last Name: "+p.getLastName()+"\n");
+			printArea.append("PhoneNumber: "+p.getPhoneNumber()+"\n");
+			printArea.append("Age: "+p.getAge()+"\n");
+			printArea.append("Password: "+p.getPassword()+"\n");
+		}
 		
 		ButtonListener b1 = new ButtonListener();
 		backButton.addActionListener(b1);
@@ -46,13 +48,11 @@ public class ShowPassengerListFrame extends JFrame {
 		
 		mainPanel.setLayout(null);
 		
-		title.setBounds(35, 0, 220, 25);
-		IdUsernameLabel.setBounds(40, 30, 170, 25);
-		scroll.setBounds(40, 50, 100, 170);
-		backButton.setBounds(150, 230, 80,25);
+		title.setBounds(35, 0, 180, 25);
+		scroll.setBounds(20, 50, 300, 270);
+		backButton.setBounds(120, 320, 80,25);
 		
 		mainPanel.add(title);
-		mainPanel.add(IdUsernameLabel);
 		mainPanel.add(scroll);
 		mainPanel.add(backButton);
 	
@@ -60,7 +60,7 @@ public class ShowPassengerListFrame extends JFrame {
 		this.setIconImage(icon.getImage());
 		this.setResizable(false);
 		this.setVisible(true);
-		this.setSize(250, 300);
+		this.setSize(340, 400);
 		this.setTitle("Passengers");
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
@@ -68,7 +68,8 @@ public class ShowPassengerListFrame extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			
 			if(e.getSource().equals(backButton)) {
-			dispose();
+				new MainSecretariatFrame(sec);
+				dispose();
 			
 			}
 		
