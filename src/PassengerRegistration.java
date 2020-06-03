@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 public class PassengerRegistration extends JFrame {
 
 	private Passenger p1;
-	private ArrayList<Passenger> passengerList = new ArrayList<Passenger>();
+	private ArrayList<Passenger> passengersList;
 	private JFrame frame;
 	private ImageIcon icon;
 	private JPanel panel, panelFirstName, panelLastName, panelAge, panelNumber, panelId, panelPassword, panelButton;
@@ -26,8 +26,10 @@ public class PassengerRegistration extends JFrame {
 	private Secretariat sec;
 	
 private JFrame mainMenuFrame;
+
 	// PassengerRegistration GUI
 	public PassengerRegistration(Secretariat sec,JFrame mainMenuFrame) {
+		passengersList=sec.getPassengerList();
 		this.mainMenuFrame= mainMenuFrame;
 		this.sec = sec;
 		frame = new JFrame();
@@ -82,20 +84,20 @@ private JFrame mainMenuFrame;
 				if (p1.getPassword().length() < 8) {
 					outcome = "Your password should be 8 characters or more.";
 				}
-				passengerList = sec.getPassengerList();
-				for (Passenger pas : passengerList) {
+				passengersList = sec.getPassengerList();
+				for (Passenger pas : passengersList) {
 					if (pas.getPhoneNumber().equals(p1.getPhoneNumber())) {
 						outcome = "Please choose a diferrent phone number.";
 					}
 					if (p1.getId().equals(pas.getId())) {
 						outcome = "Please choose a different id.";
-						JOptionPane.showMessageDialog(null,outcome);
 					}
 				}
 				
 		
 				if (outcome.equals(" ")) {
 					PassengerGUI passengerGUI = new PassengerGUI(p1,mainMenuFrame);
+					sec.addPassenger(p1);
 					JOptionPane.showMessageDialog(null, "You have registrated succesfully.");
 					frame.dispose();
 

@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -30,12 +31,16 @@ public class PassengerLoginFrame extends JFrame {
 	private JButton ReturnButton;
 	private Secretariat sec;
 	private JFrame mainMenuFrame;
-	private ArrayList<Passenger> passengerList= new ArrayList<Passenger>();
+	private ArrayList<Passenger> passengerList;
 	
 	
 	public PassengerLoginFrame(Secretariat sec, JFrame mainMenuFrame) {
 		this.mainMenuFrame=mainMenuFrame;
 		this.sec=sec;
+		
+		passengerList=sec.getPassengerList();
+		
+		//Panel 
 		panel = new JPanel();
 		panel.setLayout(null);
 		icon = new ImageIcon("p2.png");
@@ -113,6 +118,9 @@ public class PassengerLoginFrame extends JFrame {
 				for(Passenger pass:passengerList) {
 				if((usernameField.getText().equals(pass.getId()))&&(passwordField.getText().equals(pass.getPassword()))) {
 					PassengerGUI  PassengerGUI= new PassengerGUI(pass,mainMenuFrame);
+				}
+				else {
+					JOptionPane.showMessageDialog(null,"FAILED. Wrong id or password.\n	            Please try again.");
 				}
 				dispose();
 				}

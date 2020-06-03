@@ -1,16 +1,12 @@
 
 public class oneWeekCard extends unlimitedTravelCard{
 	
-	private String week;
-	private String month;
-	private String year;
+	private String purchaseTime;
 	
-	public oneWeekCard(String cardID, Passenger passenger,String Category, String week , String month, String year) {
+	public oneWeekCard(String cardID, Passenger passenger,String Category, String purchaseTime) {
 		
 		super(cardID,passenger,Category);
-		this.week = week;
-		this.month = month;
-		this.year = year;
+		this.purchaseTime= purchaseTime;
 	}
 	
 	public 	String getCardID() {
@@ -30,20 +26,41 @@ public class oneWeekCard extends unlimitedTravelCard{
 	
 	public String getWeek() {
 		
-		return (week + " Week of " + month + "/" + year);
+		String[] parts = purchaseTime.split("/");
+		String year = parts[0]; 
+		String month = parts[1];
+		String day = parts[2];
+		
+		return (day + " Day of " + month + "/" + year);
 	}
 	
 	public int getCost() {
 		
-		if(Category.equals("discounted")) return 5;
-		else return 10;
+		if(Category.equals("Discounted")) return 6;
+		else return 12;
+	}
+	
+	public String getPurchaseTime() {
+		return purchaseTime;
+	}
+	
+	public String getDay() {
+		
+		String[] parts = purchaseTime.split("/");
+		String day = parts[2];
+		return day;
 	}
 	
 	public String getInfo() {
 		
-		return("Passenger: " + Passenger.getInfo() + "\n" +
+		String[] parts = purchaseTime.split("/");
+		String year = parts[0]; 
+		String month = parts[1];
+		String day = parts[2];
+		
+		return("Passenger: " + passenger.getInfo() + "\n" +
 				"Card: " + cardID + Category + "\n" +
-			   "One-Week Card for: " + week + " Week of " + month+ "/" + year);
+			   "One-Week Card for: " + day + " Day of " + month+ "/" + year);
 	}
 	
 }

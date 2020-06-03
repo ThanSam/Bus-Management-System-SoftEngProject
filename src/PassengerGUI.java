@@ -211,10 +211,10 @@ public class PassengerGUI extends JFrame {
 			    int rc = JOptionPane.showOptionDialog(null, "Do you want delete account?", "Delete Account",
 			        JOptionPane.WARNING_MESSAGE, 1, null, buttons, buttons[1]);
 
-			    System.out.println(rc);
 			    if(rc == 0) {
 			    	passenger.getSecretariat().deletePassenger(passenger);
 			    	passenger.deletion();
+			    	frame.dispose();
 			    }
 
 			}	

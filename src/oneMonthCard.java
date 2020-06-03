@@ -1,15 +1,13 @@
 
 public class oneMonthCard extends unlimitedTravelCard {
 	
-	private String month;
-	private String year;
+	private String purchaseTime;
 	
 	
-	public oneMonthCard(String cardID, Passenger passenger,String Category, String month, String year) {
+	public oneMonthCard(String cardID, Passenger passenger,String Category, String purchaseTime) {
 		
 		super(cardID,passenger,Category);
-		this.month = month;
-		this.year = year;
+		this.purchaseTime=purchaseTime;
 	}
 	
 	public 	String getCardID() {
@@ -29,19 +27,32 @@ public class oneMonthCard extends unlimitedTravelCard {
 	
 	public String getMonth() {
 		
-		return (month + "/" + year);
+		String[] parts = purchaseTime.split("/");
+		String year = parts[0]; 
+		String month = parts[1];
+		String day = parts[2];
+		return (day+"/"+month + "/" + year);
 	}
 
+	public String getPurchaseTime() {
+		return purchaseTime;
+	}
+	
 	public int getCost() {
 		
-		if(Category.equals("discounted")) return 15;
-		else return 30;
+		if(Category.equals("discounted")) return 22;
+		else return 44;
 	}
 	
 	public String getInfo() {
 		
-		return("Passenger: " + Passenger.getInfo() + "\n" +
+		String[] parts = purchaseTime.split("/");
+		String year = parts[0]; 
+		String month = parts[1];
+		String day = parts[2];
+		
+		return("Passenger: " + passenger.getInfo() + "\n" +
 				"Card: " + cardID + Category + "\n" +
-			   "One-Month Card for: " + month + "/" + year);
+			   "One-Month Card for: "+ day + "/"+month + "/" + year);
 	}
 }
