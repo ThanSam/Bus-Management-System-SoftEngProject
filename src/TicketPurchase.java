@@ -25,9 +25,9 @@ public class TicketPurchase extends JFrame{
 	private Passenger passenger;
 	private String category="Normal";
 	private double ticketPrice,weeklyCardPrice,monthlyCardPrice;
-	private BusRoute route;
-	private String lineID;
-	private double time;
+	private BusRoute route=null;
+	private String lineID="";
+	private double time=-1;
 	
 	
 	//GUI variables
@@ -158,7 +158,7 @@ public class TicketPurchase extends JFrame{
 					for(BusLine l : passenger.getSecretariat().getBusLineList()) {
 						if(l.getLineID().equals(lineID)) {
 							for(Double time: l.getTimes()) {
-								defaultList3.addElement(String.valueOf(time)+" | ");
+								defaultList3.addElement(String.valueOf(time)+" -- ");
 							}
 						}
 					}
@@ -168,19 +168,22 @@ public class TicketPurchase extends JFrame{
 		};
 		linesList.addMouseListener(mouseListenerLines);
 		
-		//MouseListener cardsList
+		//MouseListener timeList
 		MouseListener mouseListenerTime= new MouseAdapter() {
 			public void mouseClicked(MouseEvent mouseEvent) {
+				String text="";
 				timeList=(JList) mouseEvent.getSource();
 				int t=0;  
 				t = timeList.locationToIndex(mouseEvent.getPoint());
 				if (t>=0) {
 					Object o = timeList.getModel().getElementAt(t);
-				    time=(double)o;
+				    text=(String)o;
+				    text=text.replaceAll("--","");
+					time=Double.parseDouble(text);
 				}
 			}
 		};
-		cardsList.addMouseListener(mouseListenerCards);
+		timeList.addMouseListener(mouseListenerTime);
 		
 		
 		//Creating button listener
@@ -242,19 +245,31 @@ public class TicketPurchase extends JFrame{
 				if(cost<=0) JOptionPane.showMessageDialog(null,"FAILED. Please choose the number of stops.");
 				else { 
 					String purchaseTime = new SimpleDateFormat("yyyy/MM/dd--HH:mm:ss").format(Calendar.getInstance().getTime());
-					if(cost==weeklyCardPrice) new oneWeekCard(passenger.getSecretariat().getCardID(passenger),passenger,category,purchaseTime);
-					else if(cost==monthlyCardPrice) new oneMonthCard(passenger.getSecretariat().getCardID(passenger),passenger,category,purchaseTime);
+					if(cost==weeklyCardPrice) {
+						new oneWeekCard(passenger.getSecretariat().getCardID(passenger),passenger,category,purchaseTime);
+						new BankSystem(cost);
+					}
+					else if(cost==monthlyCardPrice) {
+						new oneMonthCard(passenger.getSecretariat().getCardID(passenger),passenger,category,purchaseTime);
+						new BankSystem(cost);
+					}
 					else { 
 						
 						for(BusRoute b: passenger.getSecretariat().getBusRouteList()) {
-							if(b.getLine().equals(lineID)&& b.getDepartureTime()==time) {
+							if(b.getLine().getLineID().equals(lineID)&& b.getDepartureTime()==time) {
 								route=b;
 							}
 						}
-						new smartTicket(passenger.getSecretariat().getCardID(passenger),category,route,purchaseTime);
-						route.addPassenger();
+						if(route==null) {
+							JOptionPane.showMessageDialog(null,"Please choose a valid line and departure time.");
+						}
+						else {
+							new smartTicket(passenger.getSecretariat().getCardID(passenger),category,route,purchaseTime);
+							route.addPassenger();
+							new BankSystem(cost);
+						}
 					}
-					new BankSystem(cost);
+					
 				}				
 			}
 			
