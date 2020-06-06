@@ -87,7 +87,7 @@ public class findPeakHoursGUI extends JFrame {
 				new DriverProgramFrame(sec);
 			}
 			else if(e.getSource() == backButton) {
-				new MainSecretariatFrame(sec,new MainFrame(sec));
+				new MainSecretariatFrame(sec);
 			}
 		}
 	}
