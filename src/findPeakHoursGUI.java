@@ -88,6 +88,7 @@ public class findPeakHoursGUI extends JFrame {
 			}
 			else if(e.getSource() == backButton) {
 				new MainSecretariatFrame(sec);
+				dispose();
 			}
 		}
 	}
