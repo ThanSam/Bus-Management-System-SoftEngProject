@@ -174,7 +174,7 @@ public class DriverProgramFrame extends JFrame {
 		this.setIconImage(icon.getImage());
 		this.setResizable(false);
 		this.setVisible(true);
-		this.setSize(400, 900);
+		this.setSize(400, 700);
 		this.setTitle("Driver's Program");
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
