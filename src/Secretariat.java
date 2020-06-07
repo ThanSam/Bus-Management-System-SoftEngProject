@@ -76,11 +76,11 @@ public class Secretariat {
 		}
 
 	}
+   public String getEmergencyTime() {
+	   return time;
+   }
 
-	public String getEmergencyTime() {
-		   return time;
-	   }
-	
+
 	public void deleteDriverFromEmergancyList(Driver aDriver) {
 		for (Driver driver : emergencyList) {
 			if (driver == aDriver) {
@@ -91,7 +91,6 @@ public class Secretariat {
 
 	}
 
-	
 	public ArrayList<Driver> getEmergencyList() {
 		return emergencyList;
 	}
@@ -171,7 +170,6 @@ public class Secretariat {
 		return false;
 	}
 
-
 	public ArrayList<String> getSpecificDriverProgramm(int aDriverId) {
 		int y = 0;
 		ArrayList<String> list = new ArrayList<String>();
@@ -183,6 +181,7 @@ public class Secretariat {
 		}
 		return list;
 	}
+
 
 
 	public void messageListToAllDrivers(String message) {
