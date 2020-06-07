@@ -1,6 +1,8 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -44,8 +46,18 @@ public class FastestBus extends JFrame {
 								
 				String start=startingField.getText();
 				String stop=stoppingField.getText();
-				double currentTime=Double.parseDouble(currentTimeField.getText());
+				String purchaseTime = new SimpleDateFormat("yyyy/MM/dd--HH:mm:ss").format(Calendar.getInstance().getTime());
+				String[] parts = purchaseTime.split("--");
+				String date = parts[0]; 
+				String time = parts[1];
 				
+				parts=time.split(":");
+				String hours=parts[0];
+				String minutes=parts[1];
+				hours.replace(":", "");
+				minutes.replace(":", "");
+				time=hours+"."+minutes;
+				double currentTime= Double.valueOf(time);
 				
 				ArrayList<BusLine> selectedBusLine= new ArrayList<BusLine>();
 				ArrayList<String> stops;
@@ -73,7 +85,6 @@ public class FastestBus extends JFrame {
 					}
 				}
 				
-
 				if(selectedBusLine.size()==0) {
 					//No buses found
 					System.out.println("No buses can get you there.");
@@ -96,8 +107,12 @@ public class FastestBus extends JFrame {
 						
 						for(Double departureTime : busLine.getTimes()) {
 							double g=(departureTime+minutesFromStart)-currentTime;
-							if(g>=0 && g<=20) {
-								incomingBuses+="Bus Line "+ busLine.getLineID()+"        " +g+"'\n";
+							if((g>=0 && g<=0.20) || (g>=0.40 && g<=0.60)) {
+								if(g>=0.40) g-=0.40;
+								String t=String.format("%.2f",g).replace(",", "");
+								t.replaceAll("0", "");
+								
+								incomingBuses+="Bus Line "+ busLine.getLineID()+"        " +t+"'\n";
 							}
 						}
 					}
@@ -150,20 +165,3 @@ public class FastestBus extends JFrame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }
-
-/*
- * 
- * 
- * 
- * *************************************************************************
- *
- *  CHECK IF TIME IS NEEDED
- *
- *	CHECK CURRENT TIME 
- *
- *
- ***************************************************************************
- *
- *
- *
- */

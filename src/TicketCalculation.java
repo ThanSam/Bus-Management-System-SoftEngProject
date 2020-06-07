@@ -22,13 +22,15 @@ public class TicketCalculation extends JFrame {
 	private JList timesPerWeekList,busStopsList;
 	private JButton calculationButton,returnButton;	
 	
-	public TicketCalculation(int age) {
+	public TicketCalculation(Passenger passenger) {
 		
+		int age = passenger.getAge();
+		Secretariat sec = passenger.getSecretariat();
 		cost=0.0;
 		
-		//weeklyCardCost=secretariat.getWeeklyPrice();
-		//monthlyCardCost=secretariat.getMonthlyPrice();
-		//ticketCostPerBusStop=secretariat.getTicketCostPerBusStop();
+		weeklyCardCost=sec.getPrice(2);
+		monthlyCardCost=sec.getPrice(3);
+		ticketCostPerBusStop=sec.getPrice(1);
 		
 		//Checking for discount
 		if(age>=18 && age<=24) ticketCostPerBusStop/=2;

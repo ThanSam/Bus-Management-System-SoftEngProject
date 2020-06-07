@@ -185,7 +185,6 @@ public class TicketPurchase extends JFrame{
 		};
 		timeList.addMouseListener(mouseListenerTime);
 		
-		
 		//Creating button listener
 		ButtonListener listener=new ButtonListener();
 		

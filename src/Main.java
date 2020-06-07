@@ -16,7 +16,11 @@ public class Main {
 		Driver d3 = new Driver("George", "Dimitriou", "34", "6981145625" , "3", "3", s1);
 		Driver d4 = new Driver("Nick", "Delis", "25", "6973444625" , "4", "4", s1);
 		
-		Passenger p1 = new Passenger("Jim","Dimitriou",22,"6981144627","1","1",s1);
+		Passenger p1 = new Passenger("Jim","Kakales",22,"6981144627","1","1",s1);
+		Passenger p2 = new Passenger("Thanasis","Samaras",20,"6981144427","2","2",s1);
+		Passenger p3 = new Passenger("Christos","Kechagias",50,"6981124627","3","3",s1);
+		Passenger p4 = new Passenger("Christos","Zavitsanos",26,"6981544627","4","4",s1);
+		
 		
 		s1.addFreeDrivers(d1);
 		s1.addFreeDrivers(d2);
@@ -24,6 +28,10 @@ public class Main {
 		s1.addFreeDrivers(d4);
 	
 		s1.addPassenger(p1);
+		s1.addPassenger(p2);
+		s1.addPassenger(p3);
+		s1.addPassenger(p4);
+		
 		s1.addDriver(d1);
 		s1.addDriver(d2);
 		s1.addDriver(d3);

@@ -179,18 +179,17 @@ public class PassengerGUI extends JFrame {
 				new FastestBus(passenger.getSecretariat().getBusLineList());
 			}
 			
- /* */		//View Bus Program
+/**/		//View Bus Program
 			else if (e.getSource() == busesProgramButton) {
-				//passenger.getSecretariat().getBusProgram();
-
+				passenger.getSecretariat().getList();
 			}
 			
 			//TicketCalculation
 			else if (e.getSource() == ticketCalculationButton) {
-				new TicketCalculation(passenger.getAge());
+				new TicketCalculation(passenger);
 			}
 			
- /* */		//Ticket Shop 
+			//Ticket Shop 
 			else if (e.getSource() == ticketShopButton) {
 				new TicketPurchase(passenger);
 			}
