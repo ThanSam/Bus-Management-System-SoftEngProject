@@ -114,15 +114,25 @@ public class PassengerLoginFrame extends JFrame {
 			
 			if(e.getSource().equals(LoginButton)) {
 				
+				boolean f=false;
 				passengerList=sec.getPassengerList();
+				Passenger p1= passengerList.get(0);
+				String password=new String(passwordField.getPassword()); 
+				String username=new String(usernameField.getText()); 
+				
 				for(Passenger pass:passengerList) {
-				if((usernameField.getText().equals(pass.getId()))&&(passwordField.getText().equals(pass.getPassword()))) {
-					PassengerGUI  PassengerGUI= new PassengerGUI(pass,mainMenuFrame);
+					
+					if(((pass.getId().equals(username))&&(password).equals(pass.getPassword()))) {
+						p1=pass;
+						f=true;
+					}	
+				}
+				if(f) {
+					PassengerGUI  PassengerGUI= new PassengerGUI(p1,mainMenuFrame);
+					dispose();
 				}
 				else {
 					JOptionPane.showMessageDialog(null,"FAILED. Wrong id or password.\n	            Please try again.");
-				}
-				dispose();
 				}
 			
 			}
