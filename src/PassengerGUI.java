@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -179,9 +180,19 @@ public class PassengerGUI extends JFrame {
 				new FastestBus(passenger.getSecretariat().getBusLineList());
 			}
 			
-/**/		//View Bus Program
+			//View Bus Program
 			else if (e.getSource() == busesProgramButton) {
-				passenger.getSecretariat().getList();
+				ArrayList<BusLine> linesList=passenger.getSecretariat().getBusLineList();
+				String text="";
+				int i=0;
+				
+				for(BusLine line: linesList) {
+					text+="\n\n"+line.getLineID()+"     ||     ";
+						for(double time: line.getTimes()) {
+							text+=time+"          ";
+					}
+				}
+				JOptionPane.showMessageDialog(null,text);
 			}
 			
 			//TicketCalculation
