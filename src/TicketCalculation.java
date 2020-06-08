@@ -87,7 +87,7 @@ public class TicketCalculation extends JFrame {
 		timesPerWeekLabel.setBounds(70,40,320,20);
 		busStopsLabel.setBounds(70,150,320,20);
 		timesPerWeekList.setBounds(140,70,120,30);
-		busStopsList.setBounds(110,180,180,30);
+		busStopsList.setBounds(110,180,190,30);
 		calculationButton.setBounds(140,250,100,40);
 		returnButton.setBounds(270,335,100,20);		
 		

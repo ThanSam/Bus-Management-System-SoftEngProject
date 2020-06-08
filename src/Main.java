@@ -23,15 +23,27 @@ public class Main {
 		String hour = h.format(now3);
 	
 		if (hour.equals("8")||hour.equals("9")||hour.equals("10")||hour.equals("11")||hour.equals("12")||hour.equals("13")||hour.equals("14")||hour.equals("15")||hour.equals("16")) {
-			String time1=" ";
-			time1 = time1 + " " + "8:00-16:00";
+			String time1="";
+			time1 = time1 + " " +"8:00-16:00";
 			s1.addProgramDriverBusLine(1, time1, "1×");
+			String month=String.valueOf(dateModel.getMonth());
+			 month=String.valueOf(Integer.parseInt(month)+1);
+			String dateMonthYear = String.valueOf(dateModel.getDay()+"/"+month+"/"+dateModel.getYear());
+			 dateMonthYear = dateMonthYear +" "+ time1;
+			s1.addProgramDriverBusLine(1, dateMonthYear, "1×");
+
 		
 		} else if (hour.equals("17")||hour.equals("18")||hour.equals("19")||hour.equals("20")||hour.equals("21")||hour.equals("22")||hour.equals("23")||hour.equals("00")){
 			String time2="";
-			time2 = time2 + " " + "16:00-00:00";
-			s1.addProgramDriverBusLine(1, time2, "1×");
+			time2 = time2 + "" +"16:00-00:00";
+			String month=String.valueOf(dateModel.getMonth());
+			 month=String.valueOf(Integer.parseInt(month)+1);
+			String dateMonthYear = String.valueOf(dateModel.getDay()+"/"+month+"/"+dateModel.getYear());
+			 dateMonthYear = dateMonthYear +" "+ time2;
+			s1.addProgramDriverBusLine(1, dateMonthYear, "1×");
+		
 		}
+		
 		Driver d2 = new Driver("Kostas", "Kampos", "40", "6941144625" , "2", "2", s1);
 		Driver d3 = new Driver("George", "Dimitriou", "34", "6981145625" , "3", "3", s1);
 		Driver d4 = new Driver("Nick", "Delis", "25", "6973444625" , "4", "4", s1);

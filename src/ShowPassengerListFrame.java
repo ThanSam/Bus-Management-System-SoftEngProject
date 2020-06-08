@@ -36,7 +36,8 @@ public class ShowPassengerListFrame extends JFrame {
 			printArea.append("Last Name: "+p.getLastName()+"\n");
 			printArea.append("PhoneNumber: "+p.getPhoneNumber()+"\n");
 			printArea.append("Age: "+p.getAge()+"\n");
-			printArea.append("Password: "+p.getPassword()+"\n");
+			printArea.append("Password: "+p.getPassword()+"\n\n\n");
+		
 		}
 		
 		ButtonListener b1 = new ButtonListener();

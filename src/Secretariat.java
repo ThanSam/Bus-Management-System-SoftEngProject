@@ -24,6 +24,7 @@ public class Secretariat {
 	String[][] driverProgramm = new String[10][7];
 	String[][] driverline = new String[10][7];
 	String[][] messageToDriver = new String[5][100];
+	String[][] messageToPassenger = new String[5][100];
     String[][] freeDriver = new String[10][7];
    
     
@@ -189,11 +190,11 @@ public class Secretariat {
 
 		for (Driver driver : driverList) {
 			int id = Integer.parseInt(driver.getId());
-			if (messageToDriver[id][i] == null) {
-				messageToDriver[id][i] = message;
-			} else {
-				i = i + 1;
-				messageToDriver[id][i] = message;
+			 for(int i1=0;i1<messageToDriver.length;i1++) {
+				if (messageToDriver[id][i1] == null) {
+					messageToDriver[id][i1] = message;
+					break;}
+			 
 			}
 		}
 	}
@@ -203,13 +204,29 @@ public class Secretariat {
 	}
 
 	public void messageListToDriver(int id, String message) {
-		int i = 0;
+		
+		for(int i=0;i<messageToDriver.length;i++) {
 		if (messageToDriver[id][i] == null) {
 			messageToDriver[id][i] = message;
-		} else {
-			i = i + 1;
-			messageToDriver[id][i] = message;
-		}
+			break;}
+	 
+	}
+		
+	}
+	
+
+	public void messageListToPassenger(int id, String message) {
+		
+		for(int i=0;i<messageToPassenger.length;i++) {
+		if (messageToPassenger[id][i] == null) {
+			messageToPassenger[id][i] = message;
+			break;}
+	 
+	}
+		
+	}
+	public String[][] getÌessageListToPassenger(){
+		return messageToPassenger;
 	}
 
 	public void addPassenger(Passenger pas) {

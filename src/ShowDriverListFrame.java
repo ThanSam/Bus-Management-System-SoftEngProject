@@ -43,7 +43,7 @@ public class ShowDriverListFrame extends JFrame {
 			printArea.append("\nPhoneNumber: " + phone);
 			printArea.append("\nAge: " + age);
 			printArea.append("\nPassword: " + password);
-			printArea.append("\n\n");
+			printArea.append("\n\n\n");
 		}
 	
 		

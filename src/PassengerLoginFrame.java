@@ -49,8 +49,8 @@ public class PassengerLoginFrame extends JFrame {
 		usernameLabel.setFont(new Font("Username", Font.PLAIN, 16)); 
 		passwordLabel = new JLabel("Password");
 		passwordLabel.setFont(new Font("Password", Font.PLAIN, 16));
-		usernameField = new JTextField();
-		passwordField = new JPasswordField();
+		usernameField = new JTextField("1");
+		passwordField = new JPasswordField("1");
 		LoginButton = new JButton("Login");
 		question = new JLabel("No account?");
 		AccountButton = new JButton("Create one!");
@@ -66,21 +66,7 @@ public class PassengerLoginFrame extends JFrame {
 		AccountButton.setBounds(97, 400, 100, 20);
 		ReturnButton.setBounds(200,430,80,25);
 		
-		usernameField.setText("Enter userID");
-		usernameField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) {
-				if (usernameField.getText().equals("Enter userID")) {
-					usernameField.setText("");
-				}
-			}
 
-			public void focusLost(FocusEvent arg0) {
-				if (usernameField.getText().equals("")) {
-					usernameField.setText("Enter userID");
-				}
-			}}
-		);
-	
 		
 		panel.add(img);
 		panel.add(usernameLabel);
@@ -128,7 +114,7 @@ public class PassengerLoginFrame extends JFrame {
 					}	
 				}
 				if(f) {
-					PassengerGUI  PassengerGUI= new PassengerGUI(p1,mainMenuFrame);
+					PassengerGUI  PassengerGUI= new PassengerGUI(p1,mainMenuFrame,sec);
 					dispose();
 				}
 				else {

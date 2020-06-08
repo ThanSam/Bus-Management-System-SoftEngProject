@@ -96,7 +96,7 @@ private JFrame mainMenuFrame;
 				
 		
 				if (outcome.equals(" ")) {
-					PassengerGUI passengerGUI = new PassengerGUI(p1,mainMenuFrame);
+					PassengerGUI passengerGUI = new PassengerGUI(p1,mainMenuFrame,sec);
 					sec.addPassenger(p1);
 					JOptionPane.showMessageDialog(null, "You have registrated succesfully.");
 					frame.dispose();
@@ -113,6 +113,7 @@ private JFrame mainMenuFrame;
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
+				 new PassengerLoginFrame(sec,mainMenuFrame);
 			}
 		});
 

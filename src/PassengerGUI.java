@@ -20,15 +20,15 @@ public class PassengerGUI extends JFrame {
 	private JFrame frame,mainMenuFrame;
 	private ImageIcon icon;
 	private JPanel panel,panelNames,panelAgeNumber,panelIdPassword,panelButtonsUp,panelButtonsDown;
-	private JButton busesProgramButton,fastWayButton,ticketCalculationButton,ticketShopButton,profileConfigurationSaveButton,deletionButton,logoutButton;
+	private JButton busesProgramButton,fastWayButton,ticketCalculationButton,ticketShopButton,profileConfigurationSaveButton,deletionButton,logoutButton,messagesButton;
 	private JTextField firstnameField,lastnameField,ageField,phoneNumberField,passwordField;
 	private JLabel firstnameLabel,lastnameLabel,ageLabel,phoneNumberLabel,idLabel,userId,passwordLabel;
-
+   private Secretariat sec;
 	private Passenger passenger;
 	
 	//Passenger when LoggedIn Page
-	public PassengerGUI(Passenger passenger,JFrame mainMenuFrame) {
-		
+	public PassengerGUI(Passenger passenger,JFrame mainMenuFrame,Secretariat sec) {
+		this.sec=sec;
 		//Variables Initialization
 		frame= new JFrame();
 		this.mainMenuFrame=mainMenuFrame;
@@ -73,6 +73,7 @@ public class PassengerGUI extends JFrame {
 		fastWayButton = new JButton("Fastest bus to");
 		ticketCalculationButton= new JButton("Ticket Calculator");
 		ticketShopButton=new JButton("Buy Ticket/Card");
+		messagesButton = new JButton("Messages");
 		profileConfigurationSaveButton= new JButton("Save configuration");
 		deletionButton=new JButton("Delete profile");
 		logoutButton=new JButton("Logout");
@@ -85,6 +86,7 @@ public class PassengerGUI extends JFrame {
 		profileConfigurationSaveButton.addActionListener(listener); 
 		deletionButton.addActionListener(listener);
 		logoutButton.addActionListener(listener);
+		messagesButton.addActionListener(listener);
 		
 		//Buttons Coloring
 		logoutButton.setBackground(Color.LIGHT_GRAY);
@@ -114,6 +116,7 @@ public class PassengerGUI extends JFrame {
 		panelButtonsUp.add(fastWayButton);
 		panelButtonsDown.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
 		panelButtonsDown.add(busesProgramButton);
+		panelButtonsDown.add(messagesButton);
 		panelButtonsDown.add(deletionButton);
 		panelButtonsDown.add(profileConfigurationSaveButton);
 		panelButtonsDown.add(logoutButton);
@@ -146,9 +149,10 @@ public class PassengerGUI extends JFrame {
 		//Sub-panel panelButtonsDown
 		panelButtonsDown.setLayout(null);
 		busesProgramButton.setBounds(50,20,150,20);
-		deletionButton.setBounds(280,20,150,20);
-		profileConfigurationSaveButton.setBounds(150,60,150,20);
-		logoutButton.setBounds(380,60,100,20);
+		messagesButton.setBounds(240,20,150,20);
+		deletionButton.setBounds(240,60,150,20);
+		profileConfigurationSaveButton.setBounds(50,60,150,20);
+		logoutButton.setBounds(380,100,100,20);
 		
 		
 		//Adding sub-panels to panel
@@ -164,7 +168,7 @@ public class PassengerGUI extends JFrame {
 		//Frame Configuration
 		frame.add(panel);
 		frame.setIconImage(icon.getImage());
-		frame.setSize(500,400);
+		frame.setSize(500,550);
 		frame.setTitle("Passenger: "+passenger.getId());
 		frame.setResizable(false);
 		frame.setVisible(true);
@@ -184,7 +188,6 @@ public class PassengerGUI extends JFrame {
 			else if (e.getSource() == busesProgramButton) {
 				ArrayList<BusLine> linesList=passenger.getSecretariat().getBusLineList();
 				String text="";
-				int i=0;
 				
 				for(BusLine line: linesList) {
 					text+="\n\n"+line.getLineID()+"     ||     ";
@@ -226,6 +229,10 @@ public class PassengerGUI extends JFrame {
 			    	passenger.deletion();
 			    	frame.dispose();
 			    }
+
+			}	
+               else if (e.getSource() == messagesButton) {
+            	  new  PassengerMessagesFrame(sec,passenger);
 
 			}	
 			

@@ -188,7 +188,7 @@ public class SendMessageToDriverOrPassengerFrame extends JFrame {
 				int id = 0;
 				String message = "";
 				message = (driverMessageText.getText());
-			//	aSecretariat.messageListToAllDrivers(message);
+		       sec.messageListToAllDrivers(message);
 
 			}
 

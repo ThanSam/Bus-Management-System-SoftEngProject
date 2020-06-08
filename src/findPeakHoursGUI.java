@@ -21,11 +21,12 @@ public class findPeakHoursGUI extends JFrame {
 	private JTable Table;
 	private JButton backButton;
 	private JButton addRouteButton;
+	private JFrame frame;
 	
 	private Secretariat sec;
 	
 	public findPeakHoursGUI(Secretariat s) {
-		
+		frame = new JFrame();
 		sec = s;
 		
 		panel = new JPanel();
@@ -70,13 +71,13 @@ public class findPeakHoursGUI extends JFrame {
 		panel.add(backButton);
 		
 		
-		this.setContentPane(panel);
-		this.setIconImage(icon.getImage());
-		this.setTitle("Find Peak Hours");
-		this.setSize(300, 500);
-		this.setResizable(false);
-		this.setVisible(true);
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setContentPane(panel);
+		frame.setIconImage(icon.getImage());
+		frame.setTitle("Find Peak Hours");
+		frame.setSize(300, 500);
+		frame.setResizable(false);
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
 	
@@ -84,11 +85,12 @@ public class findPeakHoursGUI extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			
 			if (e.getSource() == addRouteButton) {
-				new DriverProgramFrame(sec);
+				new addBusRouteFrame(sec);
+			
 			}
 			else if(e.getSource() == backButton) {
 				new MainSecretariatFrame(sec);
-				dispose();
+				frame.dispose();
 			}
 		}
 	}
