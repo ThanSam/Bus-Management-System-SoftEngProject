@@ -1,17 +1,37 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import net.sourceforge.jdatepicker.impl.UtilDateModel;
-import java.util.concurrent.ThreadLocalRandom; 
+import java.util.concurrent.ThreadLocalRandom;
+
+import net.sourceforge.jdatepicker.impl.UtilDateModel; 
 
 public class Main {
 	
 	public static void main(String[] args) {
-		
         Secretariat s1 = new Secretariat();
         UtilDateModel dateModel = new UtilDateModel();
         ThreadLocalRandom random = ThreadLocalRandom.current();
         
         //Dummy data(Drivers & Passengers)
         Driver d1 = new Driver("John", "Lampis", "22", "6981144627" , "1", "1", s1);
+       int id = Integer.parseInt(d1.getId());
+        String idLine="1X";
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("d/M/yyyy");
+		DateTimeFormatter h = DateTimeFormatter.ofPattern("H");
+		LocalDateTime now = LocalDateTime.now();
+		LocalDateTime now3 = LocalDateTime.now();
+		String hour = h.format(now3);
+	
+		if (hour.equals("8")||hour.equals("9")||hour.equals("10")||hour.equals("11")||hour.equals("12")||hour.equals("13")||hour.equals("14")||hour.equals("15")||hour.equals("16")) {
+			String time1=" ";
+			time1 = time1 + " " + "8:00-16:00";
+			s1.addProgramDriverBusLine(1, time1, "1×");
+		
+		} else if (hour.equals("17")||hour.equals("18")||hour.equals("19")||hour.equals("20")||hour.equals("21")||hour.equals("22")||hour.equals("23")||hour.equals("00")){
+			String time2="";
+			time2 = time2 + " " + "16:00-00:00";
+			s1.addProgramDriverBusLine(1, time2, "1×");
+		}
 		Driver d2 = new Driver("Kostas", "Kampos", "40", "6941144625" , "2", "2", s1);
 		Driver d3 = new Driver("George", "Dimitriou", "34", "6981145625" , "3", "3", s1);
 		Driver d4 = new Driver("Nick", "Delis", "25", "6973444625" , "4", "4", s1);

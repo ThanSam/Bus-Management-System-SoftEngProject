@@ -33,8 +33,8 @@ public class SecretaryLoginFrame extends JFrame {
 		usernameLabel.setFont(new Font("Username", Font.PLAIN, 16));
 		passwordLabel = new JLabel("Password");
 		passwordLabel.setFont(new Font("Username", Font.PLAIN, 16));
-		usernameField = new JTextField();
-		passwordField = new JPasswordField();
+		usernameField = new JTextField("Secretariat1");
+		passwordField = new JPasswordField("Secretariat1");
 		LoginButton = new JButton("Login");
 		ReturnButton = new JButton("Back");
 		

@@ -3,6 +3,8 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -109,8 +111,18 @@ public class DriverProgramFrame extends JFrame {
 		for (BusLine busLine : busLineList) {
 			c.add(busLine.getLineID());
 		}
+		DateTimeFormatter h = DateTimeFormatter.ofPattern("H");
+		LocalDateTime now3 = LocalDateTime.now();
+		String hour = h.format(now3);
+		if (hour.equals("8")||hour.equals("9")||hour.equals("10")||hour.equals("11")||hour.equals("12")||hour.equals("13")||hour.equals("14")||hour.equals("15")||hour.equals("16")) {
         time.add("8:00-16:00");
         time.add("16:00-00:00");
+		}
+		else {
+	        time.add("16:00-00:00");
+			 time.add("8:00-16:00");
+		
+		}
         
 		createPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.LIGHT_GRAY));
 		createPanel.setBorder(new TitledBorder(new EtchedBorder(), "Create Driver Area"));
