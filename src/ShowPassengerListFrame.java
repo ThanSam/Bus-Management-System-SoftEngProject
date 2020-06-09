@@ -24,7 +24,10 @@ public class ShowPassengerListFrame extends JFrame {
 	
 	
 	public ShowPassengerListFrame(Secretariat sec ) {
+		
         this.sec = sec;
+        
+        //Create panels, Labels, JTextField, Buttons.
 		icon = new ImageIcon("p2.png");
 		title = new JLabel("All Passengers's ID");
 		printArea = new JTextArea(7, 7);
@@ -40,6 +43,7 @@ public class ShowPassengerListFrame extends JFrame {
 		
 		}
 		
+		//ButtonListener for Button.
 		ButtonListener b1 = new ButtonListener();
 		backButton.addActionListener(b1);
 		
@@ -49,10 +53,13 @@ public class ShowPassengerListFrame extends JFrame {
 		
 		mainPanel.setLayout(null);
 		
+		//Set Size...
 		title.setBounds(35, 0, 180, 25);
 		scroll.setBounds(20, 50, 300, 270);
 		backButton.setBounds(120, 320, 80,25);
 		
+		
+		//Add in mainPanel other components.
 		mainPanel.add(title);
 		mainPanel.add(scroll);
 		mainPanel.add(backButton);
@@ -68,6 +75,7 @@ public class ShowPassengerListFrame extends JFrame {
 	class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			
+			//BackButton Function.
 			if(e.getSource().equals(backButton)) {
 				new MainSecretariatFrame(sec);
 				dispose();

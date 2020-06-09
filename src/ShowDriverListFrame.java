@@ -14,7 +14,7 @@ import javax.swing.ScrollPaneConstants;
 public class ShowDriverListFrame extends JFrame {
 	
 	private ImageIcon icon;
-	private JPanel printPanel = new JPanel();
+	private JPanel mainPanel = new JPanel();
 	private ArrayList<String> id_Username_UsercodeList = new ArrayList<String>();
 	private JButton backButton;
 	private JTextArea printArea;
@@ -23,6 +23,8 @@ public class ShowDriverListFrame extends JFrame {
 
 	public ShowDriverListFrame(Secretariat sec) {
       this.sec=sec;
+      
+    //Create panels, Labels, JTextField, Buttons.
 		icon = new ImageIcon("p2.png");
 		title = new JLabel("All Drivers's Information");
 		printArea= new JTextArea(7, 7);
@@ -46,25 +48,27 @@ public class ShowDriverListFrame extends JFrame {
 			printArea.append("\n\n\n");
 		}
 	
-		
+		//ButtonListener for all Buttons.
 		ButtonListener b1 = new ButtonListener();
 		backButton.addActionListener(b1);
 		
-		printArea.setEditable(false); // set textArea non-editable
+		printArea.setEditable(false);
 		JScrollPane scroll = new JScrollPane(printArea);
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		
-		printPanel.setLayout(null);
+		//Set Size...
+		mainPanel.setLayout(null);
 		title.setBounds(35, 0, 180, 25);
 		scroll.setBounds(20, 50, 300, 270);
 		backButton.setBounds(120, 320, 80,25);
 		
-		printPanel.add(title);
-		printPanel.add(scroll);
-	    printPanel.add(backButton);
+		//Add in mainPanel other components.
+		mainPanel.add(title);
+		mainPanel.add(scroll);
+	    mainPanel.add(backButton);
 	    
 	    this.setIconImage(icon.getImage());
-		this.setContentPane(printPanel);
+		this.setContentPane(mainPanel);
 		this.setResizable(false);
 		this.setVisible(true);
 		this.setSize(340, 400);
@@ -74,6 +78,7 @@ public class ShowDriverListFrame extends JFrame {
 	class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			
+			//backButton Function.
 			if(e.getSource().equals(backButton)) {
 				new MainSecretariatFrame(sec);
 				dispose();

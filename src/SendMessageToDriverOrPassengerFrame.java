@@ -1,4 +1,4 @@
-import java.awt.Checkbox; 
+import java.awt.Checkbox;
 import java.awt.CheckboxGroup;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -48,8 +48,9 @@ public class SendMessageToDriverOrPassengerFrame extends JFrame {
 
 	public SendMessageToDriverOrPassengerFrame(Secretariat sec) {
 		this.sec = sec;
-		
-		backButton= new JButton("Back");
+
+		// Create panels, Labels, JTextField, Buttons.
+		backButton = new JButton("Back");
 		passengersPanel = new JPanel();
 		driversPanel = new JPanel();
 		driverSpecificPanel = new JPanel();
@@ -57,9 +58,9 @@ public class SendMessageToDriverOrPassengerFrame extends JFrame {
 		icon = new ImageIcon("p2.png");
 		checkBoxDriverPanel = new JPanel();
 		checkBoxPassengerPanel = new JPanel();
-	 passengerSpecificPanel = new JPanel();
+		passengerSpecificPanel = new JPanel();
 		sendMessageToSpecificDriverButton = new JButton("Send Message");
-		sendMessageToAllDriversButton= new JButton("Send Message");
+		sendMessageToAllDriversButton = new JButton("Send Message");
 		sendMessageToPassengersButton = new JButton("Send Message");
 		sendMessageToSpecificPassengerButton = new JButton("Send Message");
 		driverIdLabel = new JLabel("Driver's ID");
@@ -71,12 +72,16 @@ public class SendMessageToDriverOrPassengerFrame extends JFrame {
 		messageToDriver = new JLabel("Message:");
 		passengerMessageText = new JTextField(10);
 
+		// ButtonListener for all Buttons.
 		ButtonListener b1 = new ButtonListener();
 		sendMessageToSpecificDriverButton.addActionListener(b1);
 		sendMessageToAllDriversButton.addActionListener(b1);
 		backButton.addActionListener(b1);
+		sendMessageToPassengersButton.addActionListener(b1);
+		sendMessageToSpecificPassengerButton.addActionListener(b1);
 
 		
+		//CheckGroups.
 		CheckboxGroup cbg = new CheckboxGroup();
 		checkBox1 = new Checkbox("All Drivers", cbg, false);
 		checkBox1.setBounds(100, 100, 50, 50);
@@ -86,18 +91,17 @@ public class SendMessageToDriverOrPassengerFrame extends JFrame {
 		checkBox3.setBounds(100, 100, 50, 50);
 		checkBox4 = new Checkbox("Specific Passenger", cbg, false);
 		checkBox4.setBounds(100, 150, 50, 50);
-		
+
 		checkBoxPassengerPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
 		checkBoxPassengerPanel.setBorder(new TitledBorder(new EtchedBorder(), " Check All Or Specific Passenger"));
 		checkBoxPassengerPanel.add(checkBox3);
 		checkBoxPassengerPanel.add(checkBox4);
-		
+
 		checkBoxDriverPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
 		checkBoxDriverPanel.setBorder(new TitledBorder(new EtchedBorder(), " Check All Or Specific Driver"));
 		checkBoxDriverPanel.add(checkBox1);
 		checkBoxDriverPanel.add(checkBox2);
-		
-		
+
 		checkBox3.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				passengerSpecificPanel.setVisible(false);
@@ -108,7 +112,6 @@ public class SendMessageToDriverOrPassengerFrame extends JFrame {
 				passengersPanel.add(passengerMessageText);
 				passengersPanel.add(sendMessageToPassengersButton);
 
-
 			}
 		});
 		checkBox4.addItemListener(new ItemListener() {
@@ -116,7 +119,8 @@ public class SendMessageToDriverOrPassengerFrame extends JFrame {
 				passengersPanel.setVisible(false);
 				passengerSpecificPanel.setVisible(true);
 				passengerSpecificPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
-				passengerSpecificPanel.setBorder(new TitledBorder(new EtchedBorder(), " Send Message To Specific Passenger Area"));
+				passengerSpecificPanel
+						.setBorder(new TitledBorder(new EtchedBorder(), " Send Message To Specific Passenger Area"));
 				passengerSpecificPanel.add(passengerIdLabel);
 				passengerSpecificPanel.add(passengerIDText);
 				passengerSpecificPanel.add(messageToPassenger);
@@ -143,18 +147,18 @@ public class SendMessageToDriverOrPassengerFrame extends JFrame {
 				driversPanel.setVisible(false);
 				driverSpecificPanel.setVisible(true);
 				driverSpecificPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.LIGHT_GRAY));
-				driverSpecificPanel.setBorder(new TitledBorder(new EtchedBorder(), " Send message to the specific driver area"));
+				driverSpecificPanel
+						.setBorder(new TitledBorder(new EtchedBorder(), " Send message to the specific driver area"));
 				driverSpecificPanel.add(driverIdLabel);
 				driverSpecificPanel.add(driverIdText);
 				driverSpecificPanel.add(messageToDriver);
 				driverSpecificPanel.add(driverMessageText);
 				driverSpecificPanel.add(sendMessageToSpecificDriverButton);
-				}
-			
+			}
+
 		});
 
-	
-
+		// Add in mainPanel other components.
 		mainPanel.add(checkBoxPassengerPanel);
 		mainPanel.add(checkBoxDriverPanel);
 		mainPanel.add(passengersPanel);
@@ -174,34 +178,33 @@ public class SendMessageToDriverOrPassengerFrame extends JFrame {
 
 	class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-
+			// sendMessageToSpecificDriverButton Function.
 			if (e.getSource().equals(sendMessageToSpecificDriverButton)) {
-				int id = 0;
-				String message = "";
-				id = Integer.parseInt(driverIdText.getText());
-				message = (driverMessageText.getText());
+				int id = Integer.parseInt(driverIdText.getText());
+				String message = (driverMessageText.getText());
 				sec.messageListToDriver(id, message);
 
 			}
-
+			// sendMessageToAllDriversButton Function.
 			if (e.getSource().equals(sendMessageToAllDriversButton)) {
-				int id = 0;
-				String message = "";
-				message = (driverMessageText.getText());
-		       sec.messageListToAllDrivers(message);
+				String message = (driverMessageText.getText());
+				sec.messageListToAllDrivers(message);
 
 			}
-
-			if (e.getSource().equals(sendMessageToPassengersButton)) {
-				String message = "";
-				message = (passengerMessageText.getText());
-			}
+			// sendMessageToSpecificPassengerButton Function.
 			if (e.getSource().equals(sendMessageToSpecificPassengerButton)) {
-				String message = "";
-				message = (passengerMessageText.getText());
+				int id = Integer.parseInt(passengerIDText.getText());
+				String message = (passengerMessageText.getText());
+				sec.messageListToPassenger(id, message);
 			}
-		
-			if(e.getSource().equals(backButton)) {
+			// sendMessageToPassengersButton Function.
+			if (e.getSource().equals(sendMessageToPassengersButton)) {
+				String message = (passengerMessageText.getText());
+				sec.messageListToAllPassenger(message);
+			}
+
+			// backButton Function.
+			if (e.getSource().equals(backButton)) {
 				new MainSecretariatFrame(sec);
 				dispose();
 

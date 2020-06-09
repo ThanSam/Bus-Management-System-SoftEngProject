@@ -49,6 +49,9 @@ public class ShowEmegencyFrame extends JFrame {
     
 	public ShowEmegencyFrame(Secretariat sec) {
         this.sec=sec;
+        
+        
+        //Create panels, Labels, JTextField, Buttons.
 		icon = new ImageIcon("p2.png");
 		refreshIcon = new ImageIcon("p9.png");
 		refreshImg = refreshIcon.getImage();
@@ -95,11 +98,15 @@ public class ShowEmegencyFrame extends JFrame {
 		scroll2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scroll2.setSize(30, 100);
 
+		
+		//ButtonListener for all Buttons.
 		ButtonListener b1 = new ButtonListener();
 		sendDriverButton.addActionListener(b1);
 		refreshButton.addActionListener(b1);
 		backButton.addActionListener(b1);
 		
+		
+		//Set Size...
 		mainPanel.setLayout(null);
 		img.setBounds(180, 0, 375, 200);
 		emergenciesLabel.setBounds(150, 225, 100, 25);
@@ -110,6 +117,9 @@ public class ShowEmegencyFrame extends JFrame {
 		refreshButton.setBounds(402, 400, 35, 35);
 		backButton.setBounds(475, 450, 80, 25);
 
+		
+		
+		//Add in mainPanel other components.
 		mainPanel.add(img);
 		mainPanel.add(emergenciesLabel);
 		mainPanel.add(freeDriversLabel);
@@ -132,6 +142,8 @@ public class ShowEmegencyFrame extends JFrame {
 	class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			String driverLineID = null;
+			
+			//sendDriverButton Function.
 			if (e.getSource().equals(sendDriverButton)) {
 			if(emergencyList.isEmpty()||freeDrivers.isEmpty()) {
 				JOptionPane.showMessageDialog(mainPanel, "You can not matche the drivers");
@@ -164,12 +176,13 @@ public class ShowEmegencyFrame extends JFrame {
 				    }
 			}
 			}
+			//refreshButton Function.
 			else if (e.getSource().equals(refreshButton)) {
 				dispose();
 				new ShowEmegencyFrame(sec);
 				
 			}
-		
+			//backButton Function.
 		if (e.getSource().equals(backButton)) {
 			new MainSecretariatFrame(sec);
 			dispose();

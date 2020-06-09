@@ -34,7 +34,7 @@ public class PassengerLoginFrame extends JFrame {
 	private ArrayList<Passenger> passengerList;
 	
 	
-	public PassengerLoginFrame(Secretariat sec, JFrame mainMenuFrame) {
+	public PassengerLoginFrame(Secretariat sec) {
 		this.mainMenuFrame=mainMenuFrame;
 		this.sec=sec;
 		
@@ -114,7 +114,7 @@ public class PassengerLoginFrame extends JFrame {
 					}	
 				}
 				if(f) {
-					PassengerGUI  PassengerGUI= new PassengerGUI(p1,mainMenuFrame,sec);
+					PassengerGUI  PassengerGUI= new PassengerGUI(p1,sec);
 					dispose();
 				}
 				else {
@@ -123,11 +123,11 @@ public class PassengerLoginFrame extends JFrame {
 			
 			}
 			else if(e.getSource().equals(AccountButton)) {
-				PassengerRegistration passengerRegistration=new PassengerRegistration(sec,mainMenuFrame);
+				PassengerRegistration passengerRegistration=new PassengerRegistration(sec);
 				dispose();
 			}
 			else if(e.getSource().equals(ReturnButton)) {
-				mainMenuFrame.setVisible(true);
+				new MainFrame(sec);
 				dispose();
 			}
 		}

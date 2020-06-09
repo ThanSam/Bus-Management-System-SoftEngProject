@@ -27,11 +27,10 @@ public class PassengerGUI extends JFrame {
 	private Passenger passenger;
 	
 	//Passenger when LoggedIn Page
-	public PassengerGUI(Passenger passenger,JFrame mainMenuFrame,Secretariat sec) {
+	public PassengerGUI(Passenger passenger,Secretariat sec) {
 		this.sec=sec;
 		//Variables Initialization
 		frame= new JFrame();
-		this.mainMenuFrame=mainMenuFrame;
 		this.passenger=passenger;
 		icon = new ImageIcon("p2.png");
 		
@@ -232,14 +231,14 @@ public class PassengerGUI extends JFrame {
 
 			}	
                else if (e.getSource() == messagesButton) {
-            	  new  PassengerMessagesFrame(sec,passenger);
-
+            	   PassengerMessagesFrame passengerMessagesFrame  =new 	PassengerMessagesFrame(sec,passenger);
+            		frame.dispose();
 			}	
 			
 			//Logout Button
 			else if( e.getSource() == logoutButton) {
 				frame.dispose();
-				mainMenuFrame.setVisible(true);
+				new PassengerLoginFrame(sec);
 			}
 			
 		}

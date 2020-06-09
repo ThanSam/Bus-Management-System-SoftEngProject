@@ -28,9 +28,8 @@ public class PassengerRegistration extends JFrame {
 private JFrame mainMenuFrame;
 
 	// PassengerRegistration GUI
-	public PassengerRegistration(Secretariat sec,JFrame mainMenuFrame) {
+	public PassengerRegistration(Secretariat sec) {
 		passengersList=sec.getPassengerList();
-		this.mainMenuFrame= mainMenuFrame;
 		this.sec = sec;
 		frame = new JFrame();
 		panel = new JPanel();
@@ -96,7 +95,7 @@ private JFrame mainMenuFrame;
 				
 		
 				if (outcome.equals(" ")) {
-					PassengerGUI passengerGUI = new PassengerGUI(p1,mainMenuFrame,sec);
+					PassengerGUI passengerGUI = new PassengerGUI(p1,sec);
 					sec.addPassenger(p1);
 					JOptionPane.showMessageDialog(null, "You have registrated succesfully.");
 					frame.dispose();
@@ -113,7 +112,7 @@ private JFrame mainMenuFrame;
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				 new PassengerLoginFrame(sec,mainMenuFrame);
+				 new PassengerLoginFrame(sec);
 			}
 		});
 
