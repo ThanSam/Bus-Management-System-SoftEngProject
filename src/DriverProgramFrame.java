@@ -246,7 +246,6 @@ public class DriverProgramFrame extends JFrame {
 
 				String idLine = c.getSelectedItem();
 				sec.addProgramDriverBusLine(id, dateMonthYear, idLine);
-				System.out.println(dateMonthYear);
 				JOptionPane.showMessageDialog(mainPanel, "Added");
 			}
 
