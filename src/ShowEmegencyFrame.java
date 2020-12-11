@@ -40,11 +40,9 @@ public class ShowEmegencyFrame extends JFrame {
 	private Secretariat sec;
 	private CheckboxGroup freeDriversBox = new CheckboxGroup();
 	private CheckboxGroup emergencyDriversBox = new CheckboxGroup();
-	private String[][] driverline = new String[10][7];
 	private Checkbox checkBox1;
 	private Checkbox checkBox2;
     private JScrollPane scroll2;
-    private JScrollPane scroll;
     
     
 	public ShowEmegencyFrame(Secretariat sec) {

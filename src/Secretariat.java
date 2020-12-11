@@ -7,12 +7,10 @@ import java.time.format.DateTimeFormatter;
 public class Secretariat {
 
 	private String time;
-	private Passenger aPassenger;
 
 	private ArrayList<Driver> driverList = new ArrayList<Driver>();
 	private ArrayList<Driver> emergencyList = new ArrayList<Driver>();
 	private ArrayList<Driver> freeDrivers = new ArrayList<Driver>();
-	private ArrayList<Driver> freeDrivers1 = new ArrayList<Driver>();
 	private ArrayList<Passenger> passengerList = new ArrayList<Passenger>();
 	private ArrayList<BusLine> busLineList = new ArrayList<BusLine>();
 	private ArrayList<BusRoute> busRouteList = new ArrayList<BusRoute>();
@@ -360,7 +358,6 @@ public class Secretariat {
 
 		String timeStamp = new SimpleDateFormat("yyyy/MM/dd--HH:mm:ss").format(Calendar.getInstance().getTime());
 		String[] timeTable = timeStamp.split("/");
-		String currentYear = timeTable[0];
 		String currentMonth = timeTable[1];
 		String currentDay = timeTable[2];
 
@@ -370,9 +367,7 @@ public class Secretariat {
 			if (c.getCost() == monthlyCardPrice) {
 
 				String[] parts = ((oneMonthCard) c).getPurchaseTime().split("/");
-				String year = parts[0];
 				String month = parts[1];
-				String day = parts[2];
 
 				if (Math.abs((Integer.valueOf(month) - Integer.valueOf(currentMonth))) >= 2)
 					cardsList.remove(c);
@@ -381,8 +376,6 @@ public class Secretariat {
 			else {
 
 				String[] parts = ((oneWeekCard) c).getPurchaseTime().split("/");
-				String year = parts[0];
-				String month = parts[1];
 				String day = parts[2];
 
 				if (Math.abs((Integer.valueOf(day) - Integer.valueOf(currentDay))) > 7)

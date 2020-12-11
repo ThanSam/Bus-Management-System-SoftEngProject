@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 public class MainSecretariatFrame extends JFrame {
 
 	private JPanel mainPanel;
-	private JPanel LogOutPanel;
 	private ImageIcon icon;
 	private JLabel img;
 	private JButton createDeleteDriverButton;
